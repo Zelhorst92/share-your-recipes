@@ -187,6 +187,9 @@ recipe_category|String
 
 ## Logic Flowchart
 
+A flowchart on how the verification process of registering or logging in should proceed.
+![Register and Login Flowchart](https://github.com/Zelhorst92/share-your-recipes/blob/main/wireframes/register-login-flowchart.png?raw=true "Register and Login Flowchart")
+
 [Back to top](#table-of-content)
 
 ---
