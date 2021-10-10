@@ -11,6 +11,12 @@ Welcome...
   * [User Stories](#user-stories)
   * [User Requirements](#user-requirements)
   * [User Expectations](#user-expectations)
+- [Design](#design)
+  * [Wireframes](#wireframes)
+  * [Design Choices](#design-choices)
+    * [The Structure](#the-structure)
+    * [Fonts](#fonts)
+    * [Colours](#colours)
 
 # User Experience
 ## Site Owner Goal
@@ -113,8 +119,6 @@ I have chosen for a colour scheme that goes easy on the eyes, as most of what th
 ![Colour Pallette Scheme](https://github.com/Zelhorst92/share-your-recipes/blob/master/wireframes/colourpallette.png?raw=true "Colour Pallette Scheme")
 
 The colour pallette exists out of 5 colours, with a mix of colour inbetween marked with a *. The * colours are only to be used if the five main colours do not fit very well.
-
-
 
 * #375412: Dark Moss Green
 * #718161: Xanadu*
