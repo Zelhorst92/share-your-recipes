@@ -17,11 +17,15 @@ Welcome...
 * Having users find, add and share recipes.
 * A way to maintain all the recipes , ie an admin/superuser role.
 
+---
+
 ## User Goals
 * A website where you can find and share recipes
 * A website that is easy to use on all screen sizes with appropriate responsiveness.
 * A website where I can register and login to.
 * Having a dashboard with all my own recipes
+
+---
 
 ## User Stories
 As a user;
@@ -32,10 +36,34 @@ As a user;
 * I want to login to the website.
 * I want to be able to search for more specific recipes.
 * I want to add my own recipes.
-* I want to decide if my recipes are going public or not.
+* I want to decide if my recipes are public or not.
 * I want to change my recipes.
 * I want to see in a recipe, including but not limited to;
     * Whats the recipe about, ie. Recipe title.
     * Recipe ingredients.
     * Steps to completion.
-* I want the recipe maker know that I cooked their dish today/liked their recipe.
+* ~~I want the recipe maker know that I cooked their dish today/liked their recipe.~~
+
+[Back to top](#table-of-content)
+
+---
+
+## User Requirements
+* Easy navigation.
+* Intuitively know what the website is about.
+* The ability to register.
+* The ability to login and therefore access there own recipe dashboard.
+* The ability to search for recipes.
+* The ability to add/remove (own) recipes.
+
+## User Expectation
+* A user dashboard for navigation to own recipes, add or change recipes.
+* An overview of all own recipes.
+* A form to add/change a recipe.
+* The ability to filter down search parameters to find a more specific recipe.
+* 
+
+[Back to top](#table-of-content)
+
+---
+
