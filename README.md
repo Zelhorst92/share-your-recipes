@@ -17,6 +17,21 @@ Welcome...
     * [The Structure](#the-structure)
     * [Fonts](#fonts)
     * [Colours](#colours)
+  * [Database Structure](#database-structure)
+  * [Logic Flowchart](#logic-flowchart)
+- [Features](#features)
+  * [Existing Features](#existing-features)
+  * [Future Features](#future-features)
+- [Technologies](#technologies)
+  * [Languages](#languages)
+  * [Libraries and Tools](#libraries-and-tools)
+- [Testing](#testing)
+- [Deployment](#deployment)
+  * []
+- [Credits](#credits)
+  * [Code](#code)
+  * [Thanks](#thanks)
+  * [Afterword](#afterword)
 
 # User Experience
 ## Site Owner Goal
@@ -116,7 +131,7 @@ An easy to read, compact, professional looking font.
 ### Colours
 I have chosen for a colour scheme that goes easy on the eyes, as most of what the user will be doing is reading the recipes. With that it is not desirable to have colours which are to bright, hampering readability.
 
-![Colour Pallette Scheme](https://github.com/Zelhorst92/share-your-recipes/blob/master/wireframes/colourpallette.png?raw=true "Colour Pallette Scheme")
+![Colour Pallette Scheme](https://github.com/Zelhorst92/share-your-recipes/blob/main/wireframes/colourpallette.png?raw=true "Colour Pallette Scheme")
 
 The colour pallette exists out of 5 colours, with a mix of colour inbetween marked with a *. The * colours are only to be used if the five main colours do not fit very well.
 
@@ -129,5 +144,141 @@ The colour pallette exists out of 5 colours, with a mix of colour inbetween mark
 * #191919: Eerie Black
 * #97271B: Falu Red*
 * #D9351C: Vermilion 
+
+[Back to top](#table-of-content)
+
+---
+
+## Database Structure
+
+#### User
+Key|Value
+-|-
+_id|ObjectId
+username|String
+password|String
+email|String
+is_superuser|Boolean
+
+#### Recipe
+Key|Value
+-|-
+_id|ObjectId
+recipe_name|String
+recipe_category|String
+recipe_description|String
+servings|String
+cooking_minutes|String
+recipe_img|String
+recipe_ingredients|Array
+recipe_method|Array
+is_public|Boolean
+created_by|String
+
+#### Category
+Key|Value
+-|-
+_id|ObjectId
+recipe_category|String
+
+[Back to top](#table-of-content)
+
+---
+
+## Logic Flowchart
+
+[Back to top](#table-of-content)
+
+---
+
+# Features
+## Existing Features
+
+## Future Features
+
+[Back to top](#table-of-content)
+
+---
+
+# Technologies
+## Languages
+*   [HTML](https://en.wikipedia.org/wiki/HTML "Link to the HTML wikipedia page")
+*   [CSS](https://en.wikipedia.org/wiki/CSS "Link to the CSS wikipedia page")
+*   [JavaScript](https://en.wikipedia.org/wiki/JavaScript "Link to the JavaScript wikipedia page")
+
+## Libraries and Tools
+### Libraries & Frameworks
+*   ~~[Bootstrap](https://getbootstrap.com/ "Link to bootstrap")~~
+*   ~~[Fontawsome](https://fontawesome.com/ "Link to fontawesome")~~
+*   [Googlefonts](https://fonts.google.com/ "Link to googlefonts") 
+*   [Open Trivia Database](https://opentdb.com/ "Link to open trivia database")
+
+### Tools
+*   [Gitpod](https://www.gitpod.io/ "Link to gitpod")
+*   [Github](https://github.com/ "Link to github")
+*   [Git](https://git-scm.com/ "Link to git")
+*   [Tinypng](https://tinypng.com/ "Link to tinypng") 
+*   [Balsamiq Wireframes](https://balsamiq.com/wireframes/ "Link to balsamiq wireframes")
+*   [W3C Css-validator](https://jigsaw.w3.org/css-validator/ "Link to the w3 css validator")
+*   [W3C Markup-validator](https://validator.w3.org/ "Link to w3c markup validator")
+*   [Techsini](http://techsini.com/ "techsini.com")
+*   [Favicon.cc](https://www.favicon.cc/)
+
+[Back to top](#table-of-content)
+
+---
+
+# Testing
+This is done in a seperate file:
+
+[TESTING.md](https://github.com/Zelhorst92/share-your-recipes/blob/main/TESTING.md "Link to tests and bugs file")
+
+---
+
+# Deployment
+## Deployment via GitHub Pages
+The website was deployed via GitHub by following the steps below:
+-   Go to the repository you want to deply on github.
+-   Click on the **Settings** tab
+-   Go to **Pages** on the left side navigation
+-   In the **Source** section, there is a dropdown menu; select the **master** branch and **root**. Click **save**.
+-   Within a short moment the website is live.
+    You will see a link on the top of the GitHub Pages section, either in a blue or green field.
+    -   Example on how the **link** will look like and coincidently the link to the current website: [https://zelhorst92.github.io/GeKnoQu/](https://zelhorst92.github.io/GeKnoQu/ "Link to the deployed website")
+-   Any time you will push to Github, the update will be visible after a short while.
+
+## Deployment of the website locally:
+-   Click on the dropdown menu which says **Code** on the Github Repository.
+-   You will see several options; 
+    -   **Clone with a link**, 
+    -   **Open with GitHub Desktop** 
+    -   **download ZIP**
+
+#### Clone with a link
+-   When you want to clone; use the **Clone with HTTPS option**, copy the link displayed.
+-   Open your IDE and go to the terminal.
+-   Change the working directory to the location where the cloned directory is to go.
+-   Use the **git clone** command and paste the url copied in the second step.
+
+#### Open with GitHub Desktop
+-   If you have GitHub Desktop installed, you can click on this and it will import and clone the repository for you, after selecting where it needs to go.
+
+#### Download the ZIP
+-   You can also download the whole repository in a zip file and use the IDE software you want.
+
+[Back to top](#table-of-content)
+
+# Credits
+## Code
+###
+###
+
+## Thanks
+
+## Afterword
+
+...
+
+Robert L. Zelhorst
 
 [Back to top](#table-of-content)
