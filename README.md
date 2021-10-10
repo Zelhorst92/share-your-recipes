@@ -108,7 +108,22 @@ I will be using a font from [Google Fonts](https://fonts.google.com/ "Google Fon
 An easy to read, compact, professional looking font.
 
 ### Colours
+I have chosen for a colour scheme that goes easy on the eyes, as most of what the user will be doing is reading the recipes. With that it is not desirable to have colours which are to bright, hampering readability.
+
+![Colour Pallette Scheme](https://github.com/Zelhorst92/share-your-recipes/blob/master/wireframes/colourpallette.png?raw=true "Colour Pallette Scheme")
+
+The colour pallette exists out of 5 colours, with a mix of colour inbetween marked with a *. The * colours are only to be used if the five main colours do not fit very well.
 
 
+
+* #375412: Dark Moss Green
+* #718161: Xanadu*
+* #ABADB0: Silver Chalice 
+* #D5D6D8: Light Grey*
+* #FFFFFF: White
+* #8C8C8C: Battleship Grey*
+* #191919: Eerie Black
+* #97271B: Falu Red*
+* #D9351C: Vermilion 
 
 [Back to top](#table-of-content)
