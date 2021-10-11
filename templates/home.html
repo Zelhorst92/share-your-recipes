@@ -1,4 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-<p>Home</p>
+
+<div class="row">
+    <div class="col-10 offset-1 col-xl-8 offset-xl-2">
+        <form class="card text-center" method="POST" action="{{ url_for('home') }}">
+            <div class="card-body">
+                <!-- Search inputfield -->
+                <div class="input-group mb-3">
+                    <input id="username" name="username" type="text" minlength="5" maxlength="20"
+                        pattern="^[a-zA-Z0-9]{5,20}$" class="form-control" placeholder="Recipe you are looking for"
+                        aria-label="Username" required>
+                    <label for="username"></label>
+                </div>
+                <div class="mb-3">
+                    <select id="recipe_category" class="form-select" aria-label="Default select example">
+                        <option selected>Select category</option>
+                        {% for category in categories %}
+                            <option value="{{ category.recipe_category }}">{{ category.recipe_category }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="recipe_name"></label>
+                </div>
+                <button type="submit" class="input-group btn btn-primary">Search recipes</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
