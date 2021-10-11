@@ -15,9 +15,6 @@
 </head>
 
 <body>
-    <header>
-
-    </header>
     <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('home')}}">Share Your Recipes!</a>
@@ -54,8 +51,25 @@
         </div>
     </nav>
 
-    {% block content %}
-    {% endblock %}
+    <div class="container">
+        <!-- Flash messages -->
+        <section class="row flash-box text-center">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="col-10 offset-1 col-xl-8 offset-xl-2">
+                            <h4>{{ message }}</h4>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </section>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">

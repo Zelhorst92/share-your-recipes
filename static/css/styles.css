@@ -16,8 +16,13 @@ body {
     text-align: right;
 }
 
+.flash-box {
+    height: 5rem;
+    padding-top: 1.5rem;
+}
+
 .card {
-    margin-top: 15rem;
+    margin-bottom: 1rem;
 }
 
 .card-title {

@@ -1,32 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-10 offset-1 col-xl-8 offset-xl-2">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Registration</h5>
-                    <!-- Username -->
-                    <div class="input-group mb-3">
-                        <input id="username" name="username" type="text" class="form-control" placeholder="Username" aria-label="Username">
-                        <label for="username"></label>
-                    </div>
-                    <!-- Password -->
-                    <div class="input-group mb-3">
-                        <input id="password" name="password" type="password" class="form-control" placeholder="Password" aria-label="Password">
-                        <label for="password"></label>
-                    </div>
-                    <!-- Email -->
-                    <div class="input-group mb-3">
-                        <input id="email" name="email" type="email" class="form-control" placeholder="Email" aria-label="Email">
-                        <label for="email"></label>
-                    </div>
-                    <button class="input-group btn btn-primary">Register</button>
+
+<div class="row">
+    <div class="col-10 offset-1 col-xl-8 offset-xl-2">
+        <form class="card text-center" method="POST" action="{{ url_for('register') }}">
+            <div class="card-body">
+                <h5 class="card-title">Registration</h5>
+                <!-- Username -->
+                <div class="input-group mb-3">
+                    <input id="username" name="username" type="text" class="form-control" placeholder="Username"
+                        aria-label="Username">
+                    <label for="username"></label>
                 </div>
+                <!-- Password -->
+                <div class="input-group mb-3">
+                    <input id="password" name="password" type="password" class="form-control" placeholder="Password"
+                        aria-label="Password">
+                    <label for="password"></label>
+                </div>
+                <!-- Email -->
+                <div class="input-group mb-3">
+                    <input id="email" name="email" type="text" class="form-control" placeholder="Email"
+                        aria-label="Email">
+                    <label for="email"></label>
+                </div>
+                <button type="submit" class="input-group btn btn-primary">Register</button>
             </div>
-        </div>
+        </form>
     </div>
+    <h5 class="text-center">Or would you like to login?</h4>
 </div>
+
 
 {% endblock %}
