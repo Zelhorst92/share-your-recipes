@@ -1,8 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
+
+html {
+    
+    scroll-behavior: smooth;
+}
+
 body {
+    font-family: 'Nanum Gothic', 'Times New Roman', serif;
+    font-size: 400;
     background-image: linear-gradient(to right top, #ffffff, #efeff0, #dfe0e1, #d0d0d2, #c0c1c3, #abacae, #97989a, #838486, #666768, #4b4b4c, #313131, #191919);
     height: 100vh;
 }
 
 .navbar-nav {
     text-align: right;
+}
+
+.card {
+    margin-top: 15rem;
+}
+
+.card-title {
+    margin-bottom: 1.5rem;
+}
+
+.card-body {
+    padding: 1.5rem;
 }
