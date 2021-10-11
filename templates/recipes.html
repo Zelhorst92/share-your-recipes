@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes</title>
+</head>
+<body>
+    {% for recipe in recipes %}
+        <p>Recipe Name: {{ recipe.recipe_name }} </p>
+        <p>Recipe Category: {{ recipe.recipe_category }} </p>
+        <p>Recipe description: {{ recipe.recipe_description }} </p>
+        <img src="{{ recipe.recipe_img }}" alt="recipe image"/>
+        <p>Time to cook:{{ recipe.cook_time }} minutes</p>
+        <p>Number of servings: {{ recipe.servings }} </p>
+        <p>Last updated on: {{ recipe.last_updated }} </p>
+        <p>Created by: {{ recipe.created_by }} </p>
+        <ul>
+            {% for ingredient in recipe.recipe_ingredients %}
+            <li>
+              {{ ingredient }}
+            </li>
+            {% endfor %}
+        </ul>
+        <ul>
+            {% for step in recipe.recipe_method %}
+            <li>
+              {{ step }}
+            </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}    
+</body>
+</html>
