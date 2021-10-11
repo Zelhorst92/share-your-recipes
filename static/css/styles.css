@@ -1,0 +1,7 @@
+body {
+    background-image: linear-gradient(to right top, #ffffff, #efeff0, #dfe0e1, #d0d0d2, #c0c1c3, #abacae, #97989a, #838486, #666768, #4b4b4c, #313131, #191919);
+}
+
+.navbar-nav {
+    text-align: right;
+}
