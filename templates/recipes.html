@@ -2,9 +2,10 @@
 {% block result %}
 
 <div class="row">
-	<div class="col-5 card">
+	{% for recipe in recipes %}
+	<div class="col-4 offset-1 card">
 		<div class="card-body">
-			{% for recipe in recipes %}
+			
 			<h5 class="card-title">Recipe Name: {{ recipe.recipe_name }}, {{ recipe.recipe_category }} </h5>
 			<p>{{ recipe.recipe_description }} </p>
 
@@ -15,10 +16,10 @@
 				</form>
 			</div>
 
-			{% endfor %}
+			
 		</div>
 	</div>
-
+	{% endfor %}
 
 </div>
 
