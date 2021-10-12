@@ -23,6 +23,18 @@ def home():
     return render_template("home.html", categories=categories)
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    query2 = request.form.get("query2")
+    if query == "":
+        recipes = list(mongo.db.recipes.find({"$text": {"$search": query2}}))
+        return render_template("recipes.html", recipes=recipes)
+    else:
+        recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
+        return render_template("recipes.html", recipes=recipes)
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -67,7 +79,7 @@ def login():
         if existing_user:
             # check if input password matches hashed password
             if check_password_hash(existing_user["password"], request.form.get(
-                "password")):
+                    "password")):
                 session["user"] = request.form.get("username").lower()
                 flash("Welcome, {}".format(request.form.get("username")))
                 return redirect(url_for(
