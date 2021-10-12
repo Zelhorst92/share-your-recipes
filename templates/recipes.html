@@ -1,29 +1,26 @@
 {% extends "base.html" %}
 {% block result %}
 
-    {% for recipe in recipes %}
-        <p>Recipe Name: {{ recipe.recipe_name }} </p>
-        <p>Recipe Category: {{ recipe.recipe_category }} </p>
-        <p>Recipe description: {{ recipe.recipe_description }} </p>
-        <!-- <img src="{{ recipe.recipe_img }}" alt="recipe image"/> -->
-        <p>Time to cook:{{ recipe.cook_time }} minutes</p>
-        <p>Number of servings: {{ recipe.servings }} </p>
-        <p>Last updated on: {{ recipe.last_updated }} </p>
-        <p>Created by: {{ recipe.created_by }} </p>
-        <ul>
-            {% for ingredient in recipe.recipe_ingredients %}
-            <li>
-              {{ ingredient }}
-            </li>
-            {% endfor %}
-        </ul>
-        <ul>
-            {% for step in recipe.recipe_method %}
-            <li>
-              {{ step }}
-            </li>
-            {% endfor %}
-        </ul>
-    {% endfor %}    
+<div class="row">
+	<div class="col-5 card">
+		<div class="card-body">
+			{% for recipe in recipes %}
+			<h5 class="card-title">Recipe Name: {{ recipe.recipe_name }}, {{ recipe.recipe_category }} </h5>
+			<p>{{ recipe.recipe_description }} </p>
+
+			<div class="row">
+				<form method="POST" action="{{ url_for('view_recipe') }}">
+					<input id="full_recipe" name="full_recipe" type="hidden" value="{{ recipe.recipe_name }}">
+					<button  class="btn btn-primary" type="submit">View Recipe</button>
+				</form>
+			</div>
+
+			{% endfor %}
+		</div>
+	</div>
+
+
+</div>
+
 
 {% endblock %}

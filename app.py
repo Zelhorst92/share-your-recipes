@@ -114,10 +114,11 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/get_recipe")
-def get_recipes():
-    recipes = mongo.db.recipes.find()
-    return render_template("recipes.html", recipes=recipes)
+@app.route("/view_recipe", methods=["GET", "POST"])
+def view_recipe():
+    full_recipe = request.form.get("full_recipe")
+    recipe = list(mongo.db.recipes.find({"$text": {"$search": full_recipe}}))
+    return render_template("recipe.html", recipes=recipe)
 
 
 if __name__ == "__main__":
