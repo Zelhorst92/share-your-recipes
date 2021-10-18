@@ -125,6 +125,16 @@ def view_recipe():
     return render_template("recipe.html", recipes=recipe)
 
 
+@app.route("/my_recipes")
+def my_recipes():
+    if session["user"]:
+        recipes = list(mongo.db.recipes.find({"$text": {"$search": session["user"]}}).sort("recipe_name", 1))
+        return render_template("my_recipes.html", recipes=recipes)
+    else:
+        flash('You need to be logged in to see your recipes')
+        return redirect(url_for("login"))
+
+
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
     if request.method == "POST":

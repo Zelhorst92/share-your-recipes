@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block result %}
+
+<div class="row">
+	{% for recipe in recipes %}
+	<div class="col-4 offset-1 card">
+		<div class="card-body">
+			
+			<h5 class="card-title">Recipe Name: {{ recipe.recipe_name }}, {{ recipe.recipe_category }} </h5>
+			<p>{{ recipe.recipe_description }} </p>
+
+			<div class="row">
+				<form method="POST" action="{{ url_for('view_recipe') }}">
+					<input id="full_recipe" name="full_recipe" type="hidden" value="{{ recipe._id }}">
+					<button  class="btn btn-primary" type="submit">View Recipe</button>
+				</form>
+			</div>
+
+			
+		</div>
+	</div>
+	{% endfor %}
+
+</div>
+
+
+{% endblock %}
