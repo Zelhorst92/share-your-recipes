@@ -13,7 +13,7 @@
                 </div>
                 <div class="mb-3">
                     <select id="query2" name="query2" class="form-select" aria-label="Default select example">
-                        <option selected>Select category</option>
+                        <option value="" disabled selected>All Categories</option>
                         {% for category in categories %}
                             <option value="{{ category.recipe_category }}">{{ category.recipe_category }}</option>
                         {% endfor %}
