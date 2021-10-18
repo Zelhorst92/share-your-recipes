@@ -33,11 +33,7 @@
 	</div>
 </div>
 <ul>
-	{% for step in recipe.recipe_method %}
-	<li>
-		{{ step }}
-	</li>
-	{% endfor %}
+	{{ recipe.recipe_method }}
 </ul>
 {% endfor %}
 

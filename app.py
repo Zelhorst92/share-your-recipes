@@ -29,13 +29,13 @@ def search():
     query = request.form.get("query")
     query2 = request.form.get("query2")
     if query == "" and query2 == "":
-        recipes = mongo.db.recipes.find().sort("recipe_name", 1)
+        recipes = list(mongo.db.recipes.find().sort("recipe_name", 1))
         return render_template("recipes.html", recipes=recipes)
     elif query == "":
-        recipes = list(mongo.db.recipes.find({"$text": {"$search": query2}}))
+        recipes = list(mongo.db.recipes.find({"$text": {"$search": query2}}).sort("recipe_name", 1))
         return render_template("recipes.html", recipes=recipes)
     else:
-        recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
+        recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}).sort("recipe_name", 1))
         return render_template("recipes.html", recipes=recipes)
 
 
