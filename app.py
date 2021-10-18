@@ -139,7 +139,7 @@ def my_recipes():
 def add_recipe():
     if request.method == "POST":
         is_public = True if request.form.get("is_public") else False
-        recipe_ingredients = request.form.get("recipe_ingredients").split(",")
+        recipe_ingredients = request.form.get("recipe_ingredients").split(";")
         recipe = {
             "recipe_name": request.form.get("recipe_name"),
             "recipe_category": request.form.get("recipe_category"),
@@ -166,7 +166,7 @@ def add_recipe():
 def edit_recipe(recipe_id):
     if request.method == "POST":
         is_public = True if request.form.get("is_public") else False
-        recipe_ingredients = request.form.get("recipe_ingredients").split(",")
+        recipe_ingredients = request.form.get("recipe_ingredients").split(";")
         updated_recipe = {
             "recipe_name": request.form.get("recipe_name"),
             "recipe_category": request.form.get("recipe_category"),
@@ -190,6 +190,13 @@ def edit_recipe(recipe_id):
     categories = mongo.db.categories.find().sort("recipe_category", 1)
     return render_template(
         "edit_recipe.html", recipe=recipe, categories=categories)
+
+
+@app.route("/delete_recipe/<recipe_id>")
+def delete_recipe(recipe_id):
+    mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+    flash("Recipe Successfully Deleted")
+    return redirect(url_for("my_recipes"))
 
 
 if __name__ == "__main__":
