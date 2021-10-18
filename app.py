@@ -121,7 +121,7 @@ def logout():
 @app.route("/view_recipe", methods=["GET", "POST"])
 def view_recipe():
     full_recipe = request.form.get("full_recipe")
-    recipe = list(mongo.db.recipes.find({"$text": {"$search": full_recipe}}))
+    recipe = list(mongo.db.recipes.find({"_id": ObjectId(full_recipe)}))
     return render_template("recipe.html", recipes=recipe)
 
 
@@ -129,6 +129,7 @@ def view_recipe():
 def add_recipe():
     if request.method == "POST":
         is_public = True if request.form.get("is_public") else False
+        recipe_ingredients = request.form.get("recipe_ingredients").split(",")
         recipe = {
             "recipe_name": request.form.get("recipe_name"),
             "recipe_category": request.form.get("recipe_category"),
@@ -136,7 +137,7 @@ def add_recipe():
             "servings": request.form.get("servings"),
             "cook_time": request.form.get("cook_time"),
             "recipe_description": request.form.get("recipe_description"),
-            "recipe_ingredients": request.form.get("recipe_ingredients"),
+            "recipe_ingredients": recipe_ingredients,
             "recipe_method": request.form.get("recipe_method"),
             "is_public": is_public,
             "last_updated": date.today().strftime("%B %d, %Y"),
