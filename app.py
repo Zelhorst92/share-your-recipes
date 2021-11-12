@@ -75,28 +75,35 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "POST":
-        # check if username exists in db
-        existing_user = mongo.db.users.find_one(
-            {"username": request.form.get("username").lower()})
+    try:
+        if session["user"]:
+            flash('You are already logged in')
+        return redirect(url_for(
+            "dashboard", username=session["user"]))
 
-        if existing_user:
-            # check if input password matches hashed password
-            if check_password_hash(existing_user["password"], request.form.get(
-                    "password")):
-                session["user"] = request.form.get("username").lower()
-                flash("Welcome, {}".format(request.form.get("username")))
-                return redirect(url_for(
-                    "dashboard", username=session["user"]))
+    except:
+        if request.method == "POST":
+            # check if username exists in db
+            existing_user = mongo.db.users.find_one(
+                {"username": request.form.get("username").lower()})
+
+            if existing_user:
+                # check if input password matches hashed password
+                if check_password_hash(existing_user["password"], request.form.get(
+                        "password")):
+                    session["user"] = request.form.get("username").lower()
+                    flash("Welcome, {}".format(request.form.get("username")))
+                    return redirect(url_for(
+                        "dashboard", username=session["user"]))
+                else:
+                    flash("That's incorrect, please try again.")
+                    return redirect(url_for("login"))
+
             else:
                 flash("That's incorrect, please try again.")
-                return redirect(url_for("components/forms/login"))
+                return redirect(url_for("login"))
 
-        else:
-            flash("That's incorrect, please try again.")
-            return redirect(url_for("components/forms/login"))
-
-    return render_template("components/forms/login.html")
+        return render_template("components/forms/login.html")
 
 
 @app.route("/dashboard/<username>", methods=["GET", "POST"])
