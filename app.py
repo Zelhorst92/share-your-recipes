@@ -21,7 +21,7 @@ mongo = PyMongo(app)
 @app.route("/")
 def home():
     categories = mongo.db.categories.find().sort("recipe_category", 1)
-    return render_template("home.html", categories=categories)
+    return render_template("components/home.html", categories=categories)
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -30,13 +30,13 @@ def search():
     query2 = request.form.get("query2")
     if query == "" and query2 == "":
         recipes = list(mongo.db.recipes.find().sort("recipe_name", 1))
-        return render_template("recipes.html", recipes=recipes)
+        return render_template("pages/recipes.html", recipes=recipes)
     elif query == "":
         recipes = list(mongo.db.recipes.find({"$text": {"$search": query2}}).sort("recipe_name", 1))
-        return render_template("recipes.html", recipes=recipes)
+        return render_template("pages/recipes.html", recipes=recipes)
     else:
         recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}).sort("recipe_name", 1))
-        return render_template("recipes.html", recipes=recipes)
+        return render_template("pages/recipes.html", recipes=recipes)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -70,7 +70,7 @@ def register():
         flash("Registration Successfull")
         return redirect(url_for(
             "dashboard", username=session["user"]))
-    return render_template("register.html")
+    return render_template("components/forms/register.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -90,13 +90,13 @@ def login():
                     "dashboard", username=session["user"]))
             else:
                 flash("That's incorrect, please try again.")
-                return redirect(url_for("login"))
+                return redirect(url_for("components/forms/login"))
 
         else:
             flash("That's incorrect, please try again.")
-            return redirect(url_for("login"))
+            return redirect(url_for("components/forms/login"))
 
-    return render_template("login.html")
+    return render_template("components/forms/login.html")
 
 
 @app.route("/dashboard/<username>", methods=["GET", "POST"])
@@ -105,7 +105,7 @@ def dashboard(username):
         {"username": session["user"]})["username"]
 
     if session["user"]:
-        return render_template("dashboard.html", username=username)
+        return render_template("pages/dashboard.html", username=username)
 
     return redirect(url_for("login"))
 
@@ -122,7 +122,7 @@ def logout():
 def view_recipe():
     full_recipe = request.form.get("full_recipe")
     recipe = list(mongo.db.recipes.find({"_id": ObjectId(full_recipe)}))
-    return render_template("recipe.html", recipes=recipe)
+    return render_template("pages/recipe.html", recipes=recipe)
 
 
 @app.route("/my_recipes")
@@ -130,7 +130,7 @@ def my_recipes():
     try:
         if session["user"]:
             recipes = list(mongo.db.recipes.find({"$text": {"$search": session["user"]}}).sort("recipe_name", 1))
-            return render_template("my_recipes.html", recipes=recipes)
+            return render_template("pages/my_recipes.html", recipes=recipes)
     except:
         flash('You need to be logged in to see your recipes')
         return redirect(url_for("login"))
@@ -160,7 +160,7 @@ def add_recipe():
         return redirect(url_for("add_recipe"))
 
     categories = mongo.db.categories.find().sort("recipe_category", 1)
-    return render_template("add_recipe.html", categories=categories)
+    return render_template("components/forms/add_recipe.html", categories=categories)
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
@@ -190,7 +190,7 @@ def edit_recipe(recipe_id):
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     categories = mongo.db.categories.find().sort("recipe_category", 1)
     return render_template(
-        "edit_recipe.html", recipe=recipe, categories=categories)
+        "components/forms/edit_recipe.html", recipe=recipe, categories=categories)
 
 
 @app.route("/delete_recipe/<recipe_id>")

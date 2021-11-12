@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'layout/head.html' %}
+</head>
+
+<body>
+    {% include 'components/navigation.html' %}
+
+    <div class="container">
+        <!-- Flash messages -->
+        <section class="row flash-box text-center">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="col-10 offset-1 col-xl-8 offset-xl-2">
+                            <h4>{{ message }}</h4>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </section>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+
+            {% block result %}
+            {% endblock %}
+        </main>
+    </div>
+    {% include 'layout/scripts.html' %}
+</body>
+</html>
