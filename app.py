@@ -101,13 +101,15 @@ def login():
 
 @app.route("/dashboard/<username>", methods=["GET", "POST"])
 def dashboard(username):
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
 
-    if session["user"]:
-        return render_template("pages/dashboard.html", username=username)
-
-    return redirect(url_for("login"))
+    try:
+        if session["user"]:
+            username = mongo.db.users.find_one(
+                {"username": session["user"]})["username"]
+            return render_template("pages/dashboard.html", username=username)
+    except:
+        flash('You need to be logged in to see your dashboard')
+        return redirect(url_for("login"))
 
 
 @app.route("/logout")
