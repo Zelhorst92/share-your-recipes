@@ -140,29 +140,35 @@ def my_recipes():
 
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
-    if request.method == "POST":
-        is_public = True if request.form.get("is_public") else False
-        recipe_ingredients = request.form.get("recipe_ingredients").split(";")
-        recipe = {
-            "recipe_name": request.form.get("recipe_name"),
-            "recipe_category": request.form.get("recipe_category"),
-            "recipe_img": request.form.get("recipe_img"),
-            "servings": request.form.get("servings"),
-            "cook_time": request.form.get("cook_time"),
-            "recipe_description": request.form.get("recipe_description"),
-            "recipe_ingredients": recipe_ingredients,
-            "recipe_method": request.form.get("recipe_method"),
-            "is_public": is_public,
-            "last_updated": date.today().strftime("%B %d, %Y"),
-            "created_by": session["user"]
-        }
-        mongo.db.recipes.insert_one(recipe)
-        flash("Recipe successfully added")
-        # Dont forget to change url below to my recipes when ready
-        return redirect(url_for("add_recipe"))
+    try:
+        if session["user"]:
+            if request.method == "POST":
+                is_public = True if request.form.get("is_public") else False
+                recipe_ingredients = request.form.get("recipe_ingredients").split(";")
+                recipe = {
+                    "recipe_name": request.form.get("recipe_name"),
+                    "recipe_category": request.form.get("recipe_category"),
+                    "recipe_img": request.form.get("recipe_img"),
+                    "servings": request.form.get("servings"),
+                    "cook_time": request.form.get("cook_time"),
+                    "recipe_description": request.form.get("recipe_description"),
+                    "recipe_ingredients": recipe_ingredients,
+                    "recipe_method": request.form.get("recipe_method"),
+                    "is_public": is_public,
+                    "last_updated": date.today().strftime("%B %d, %Y"),
+                    "created_by": session["user"]
+                }
+                mongo.db.recipes.insert_one(recipe)
+                flash("Recipe successfully added")
+                # Dont forget to change url below to my recipes when ready
+                return redirect(url_for("add_recipe"))
 
-    categories = mongo.db.categories.find().sort("recipe_category", 1)
-    return render_template("components/forms/add_recipe.html", categories=categories)
+            categories = mongo.db.categories.find().sort("recipe_category", 1)
+            return render_template("components/forms/add_recipe.html", categories=categories)
+
+    except:
+        flash('You need to be logged in to add a recipe')
+        return redirect(url_for("login"))
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
