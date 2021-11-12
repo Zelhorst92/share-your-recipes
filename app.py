@@ -209,9 +209,15 @@ def edit_recipe(recipe_id):
 
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
-    mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
-    flash("Recipe Successfully Deleted")
-    return redirect(url_for("my_recipes"))
+    try:
+        if session["user"]:
+            mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+            flash("Recipe Successfully Deleted")
+            return redirect(url_for("my_recipes"))
+
+    except:
+        flash('You need to be logged in to delete a recipe')
+        return redirect(url_for("login"))
 
 
 if __name__ == "__main__":
