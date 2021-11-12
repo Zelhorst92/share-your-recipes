@@ -173,32 +173,38 @@ def add_recipe():
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
-    if request.method == "POST":
-        is_public = True if request.form.get("is_public") else False
-        recipe_ingredients = request.form.get("recipe_ingredients").split(";")
-        updated_recipe = {
-            "recipe_name": request.form.get("recipe_name"),
-            "recipe_category": request.form.get("recipe_category"),
-            "recipe_img": request.form.get("recipe_img"),
-            "servings": request.form.get("servings"),
-            "cook_time": request.form.get("cook_time"),
-            "recipe_description": request.form.get("recipe_description"),
-            "recipe_ingredients": recipe_ingredients,
-            "recipe_method": request.form.get("recipe_method"),
-            "is_public": is_public,
-            "last_updated": date.today().strftime("%B %d, %Y"),
-            "created_by": session["user"]
-        }
-        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, updated_recipe)
-        flash("Recipe successfully Edited!")
-        # Dont forget to change url below to my recipes when ready
-        
-        return redirect(url_for("my_recipes"))
+    try:
+        if session["user"]:
+            if request.method == "POST":
+                is_public = True if request.form.get("is_public") else False
+                recipe_ingredients = request.form.get("recipe_ingredients").split(";")
+                updated_recipe = {
+                    "recipe_name": request.form.get("recipe_name"),
+                    "recipe_category": request.form.get("recipe_category"),
+                    "recipe_img": request.form.get("recipe_img"),
+                    "servings": request.form.get("servings"),
+                    "cook_time": request.form.get("cook_time"),
+                    "recipe_description": request.form.get("recipe_description"),
+                    "recipe_ingredients": recipe_ingredients,
+                    "recipe_method": request.form.get("recipe_method"),
+                    "is_public": is_public,
+                    "last_updated": date.today().strftime("%B %d, %Y"),
+                    "created_by": session["user"]
+                }
+                mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, updated_recipe)
+                flash("Recipe successfully Edited!")
+                # Dont forget to change url below to my recipes when ready
+                
+                return redirect(url_for("my_recipes"))
 
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    categories = mongo.db.categories.find().sort("recipe_category", 1)
-    return render_template(
-        "components/forms/edit_recipe.html", recipe=recipe, categories=categories)
+            recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+            categories = mongo.db.categories.find().sort("recipe_category", 1)
+            return render_template(
+                "components/forms/edit_recipe.html", recipe=recipe, categories=categories)
+
+    except:
+        flash('You need to be logged in to change a recipe')
+        return redirect(url_for("login"))
 
 
 @app.route("/delete_recipe/<recipe_id>")
