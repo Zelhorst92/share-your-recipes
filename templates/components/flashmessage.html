@@ -1,0 +1,11 @@
+<section class="row flash-box text-center">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="col-10 offset-1 col-xl-8 offset-xl-2">
+                    <h4 class="flash-message">{{ message }}</h4>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</section>

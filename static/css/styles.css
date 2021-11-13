@@ -8,17 +8,13 @@ html {
 
 body {
     font-family: 'Nanum Gothic', 'Times New Roman', serif;
-    font-size: /* 2rem */;
+    font-weight: 400;
     background: linear-gradient(to right top, #ffffff, #efeff0, #dfe0e1, #d0d0d2, #c0c1c3, #abacae, #97989a, #838486, #666768, #4b4b4c, #313131, #191919);
     background-image: url('../images/main-background.png');
     height: 100vh;
     background-repeat: no-repeat;
     background-position: top center;
     background-attachment: fixed;
-}
-
-p {
-    margin: 0;
 }
 
 .navbar-nav {
@@ -28,6 +24,11 @@ p {
 .flash-box {
     height: 5rem;
     padding-top: 1.5rem;
+}
+
+.flash-message {
+    color: #FFFFFF;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.75);
 }
 
 .home-title {
