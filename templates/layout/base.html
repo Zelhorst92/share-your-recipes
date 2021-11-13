@@ -21,13 +21,12 @@
             {% endwith %}
         </section>
 
-        <main>
-            {% block content %}
-            {% endblock %}
+        {% block content %}
+        {% endblock %}
 
-            {% block result %}
-            {% endblock %}
-        </main>
+        {% block result %}
+        {% endblock %}
+        
     </div>
     {% include 'layout/scripts.html' %}
 </body>
