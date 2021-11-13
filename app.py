@@ -26,16 +26,16 @@ def home():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    query = request.form.get("query")
-    query2 = request.form.get("query2")
-    if query == "" and query2 == "":
+    inputquery = request.form.get("inputquery")
+    categoryquery = request.form.get("categoryquery")
+    if inputquery == "" and categoryquery == "":
         recipes = list(mongo.db.recipes.find().sort("recipe_name", 1))
         return render_template("pages/recipes.html", recipes=recipes)
-    elif query == "":
-        recipes = list(mongo.db.recipes.find({"$text": {"$search": query2}}).sort("recipe_name", 1))
+    elif inputquery == "":
+        recipes = list(mongo.db.recipes.find({"$text": {"$search": categoryquery}}).sort("recipe_name", 1))
         return render_template("pages/recipes.html", recipes=recipes)
     else:
-        recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}).sort("recipe_name", 1))
+        recipes = list(mongo.db.recipes.find({"$text": {"$search": inputquery}}).sort("recipe_name", 1))
         return render_template("pages/recipes.html", recipes=recipes)
 
 
