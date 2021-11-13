@@ -5,6 +5,7 @@
     <div class="col-10 offset-1 col-xl-8 offset-xl-2">
         <form class="card text-center" method="POST" action="{{ url_for('search') }}">
             <div class="card-body">
+                <h2 class="home-title">Find your recipe here!</h2>
                 <!-- Inputfield Search -->
                 <div class="input-group mb-3">
                     <input id="inputquery" name="inputquery" type="search" class="form-control" placeholder="Recipe you are looking for"
@@ -21,7 +22,7 @@
                     </select>
                     <label for="categoryquery"></label>
                 </div>
-                <button type="submit" class="input-group btn btn-primary">Search recipes</button>
+                <button type="submit" class="input-group btn main-btn">Search recipes</button>
             </div>
         </form>
     </div>

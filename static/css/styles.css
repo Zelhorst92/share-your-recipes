@@ -1,14 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
 
 html {
-    
+    /* font-size: 62.5%; */
     scroll-behavior: smooth;
+    min-height: 100vh;
 }
 
 body {
     font-family: 'Nanum Gothic', 'Times New Roman', serif;
-    font-size: 400;
-    background-image: linear-gradient(to right top, #ffffff, #efeff0, #dfe0e1, #d0d0d2, #c0c1c3, #abacae, #97989a, #838486, #666768, #4b4b4c, #313131, #191919);
+    font-size: /* 2rem */;
+    background: linear-gradient(to right top, #ffffff, #efeff0, #dfe0e1, #d0d0d2, #c0c1c3, #abacae, #97989a, #838486, #666768, #4b4b4c, #313131, #191919);
+    background-image: url('../images/main-background.png');
     height: 100vh;
     background-repeat: no-repeat;
     background-position: top center;
@@ -26,6 +28,18 @@ p {
 .flash-box {
     height: 5rem;
     padding-top: 1.5rem;
+}
+
+.home-title {
+    padding-bottom: 2rem;
+}
+
+.main-btn {
+    background-color: #718161;
+}
+
+.main-btn:hover {
+    background-color: #375412;
 }
 
 .card {
