@@ -122,8 +122,6 @@ This framework allows for a proper responsive website which is build up from a m
 The grid-system that Bootstrap provides is very usefull to have a well working responsive website.
 Furthermore Bootstrap has a wide browser compatibility, is quite easy to use and is very customizable.
 
-As a starting point I will begin with the template provided by [Startbootstrap](startbootstrap.com/ "Link to startbootstrap"), specifically the [Landingpage](https://startbootstrap.com/previews/landing-page "Link to startbootstrap landingpage"). This will be heavily modified to suit my needs.
-
 ### Fonts
 I will be using a font from [Google Fonts](https://fonts.google.com/ "Google Fonts"), specifically the [Nanum Gothic](https://fonts.google.com/specimen/Nanum+Gothic "Nanum Gothic").
 An easy to read, compact, professional looking font.
