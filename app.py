@@ -32,27 +32,39 @@ def search():
         recipes = list(mongo.db.recipes.find().sort("recipe_name", 1))
         return render_template("pages/recipes.html", recipes=recipes)
     elif inputquery == "":
-        recipes = list(mongo.db.recipes.find({"$text": {"$search": categoryquery}}).sort("recipe_name", 1))
+        recipes = list(mongo.db.recipes.find(
+            {"$text": {"$search": categoryquery}}).sort("recipe_name", 1))
         return render_template("pages/recipes.html", recipes=recipes)
     else:
-        recipes = list(mongo.db.recipes.find({"$text": {"$search": inputquery}}).sort("recipe_name", 1))
+        recipes = list(mongo.db.recipes.find(
+            {"$text": {"$search": inputquery}}).sort("recipe_name", 1))
         return render_template("pages/recipes.html", recipes=recipes)
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """
+    Registers an account for the user.
+    Checks if there is a sessioncookie.
+    Cannot register if user is already logged in.
+    Gives feedback that user is already logged in.
+    Redirects to dashboard if user is  already logged in.
+    Checks if username and/or emailadress are already in use.
+    Cannot register with same username or emailadress.
+    Gives feedback if username and/or email adress is already in use.
+    After registration is successfull,
+    creates session cookie and redirects to users dashboard.
+    """
     try:
         if session["user"]:
             flash('You are already logged in, no need to register again')
         return redirect(url_for(
             "dashboard", username=session["user"]))
-    
+
     except:
         if request.method == "POST":
-            # check if username already exists in db
             existing_user = mongo.db.users.find_one(
                 {"username": request.form.get("username").lower()})
-            # check if email already exists in db
             existing_email = mongo.db.users.find_one(
                 {"email": request.form.get("email").lower()})
 
@@ -66,13 +78,13 @@ def register():
 
             register = {
                 "username": request.form.get("username").lower(),
-                "password": generate_password_hash(request.form.get("password")),
+                "password": generate_password_hash(
+                    request.form.get("password")),
                 "email": request.form.get("email").lower(),
                 "superuser": False
             }
             mongo.db.users.insert_one(register)
 
-            # put the new user into 'session' cookie
             session["user"] = request.form.get("username").lower()
             flash("Registration Successfull")
             return redirect(url_for(
@@ -82,6 +94,17 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """
+    Login function with username and password.
+    Checks if there is a sessioncookie.
+    Cannot log in if user is already logged in.
+    Gives feedback that user is already logged in.
+    Redirects to dashboard if user is  already logged in.
+    Checks if username and password are a correct match.
+    Gives feedback if username and/or password is incorrect.
+    After login is successfull,
+    creates session cookie and redirects to user dashboard.
+    """
     try:
         if session["user"]:
             flash('You are already logged in')
@@ -90,14 +113,11 @@ def login():
 
     except:
         if request.method == "POST":
-            # check if username exists in db
             existing_user = mongo.db.users.find_one(
                 {"username": request.form.get("username").lower()})
-
             if existing_user:
-                # check if input password matches hashed password
-                if check_password_hash(existing_user["password"], request.form.get(
-                        "password")):
+                if check_password_hash(
+                    existing_user["password"], request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
                     flash("Welcome, {}".format(request.form.get("username")))
                     return redirect(url_for(
@@ -105,7 +125,6 @@ def login():
                 else:
                     flash("That's incorrect, please try again.")
                     return redirect(url_for("login"))
-
             else:
                 flash("That's incorrect, please try again.")
                 return redirect(url_for("login"))
@@ -115,7 +134,13 @@ def login():
 
 @app.route("/dashboard/<username>", methods=["GET", "POST"])
 def dashboard(username):
-
+    """
+    Checks if there is a sessioncookie.
+    Gives feedback that user needs to be logged in to see dashboard.
+    Redirects to log in page if user is not logged in.
+    Show correct dashboard according to session cookie.
+    If there is no session cookie, redirects to log in page.
+    """
     try:
         if session["user"]:
             username = mongo.db.users.find_one(
@@ -128,7 +153,11 @@ def dashboard(username):
 
 @app.route("/logout")
 def logout():
-    # Remove user session cookie
+    """
+    Removes user session cookie.
+    Gives feedback that user has been logged out.
+    Redirects to log in page.
+    """
     flash("You have been logged out")
     session.pop("user")
     return redirect(url_for("login"))
@@ -136,6 +165,9 @@ def logout():
 
 @app.route("/view_recipe", methods=["GET", "POST"])
 def view_recipe():
+    """
+    Finds full recipe with recipe id.
+    """
     full_recipe = request.form.get("full_recipe")
     recipe = list(mongo.db.recipes.find({"_id": ObjectId(full_recipe)}))
     return render_template("pages/recipe.html", recipes=recipe)
@@ -143,9 +175,16 @@ def view_recipe():
 
 @app.route("/my_recipes")
 def my_recipes():
+    """
+    Checks if there is a sessioncookie.
+    Gives feedback that user needs to be logged in to see its recipes.
+    Redirects to log in page if user is not logged in.
+    If logged in, shows all recipes created by user.
+    """
     try:
         if session["user"]:
-            recipes = list(mongo.db.recipes.find({"$text": {"$search": session["user"]}}).sort("recipe_name", 1))
+            recipes = list(mongo.db.recipes.find(
+                {"$text": {"$search": session["user"]}}).sort("recipe_name", 1))
             return render_template("pages/my_recipes.html", recipes=recipes)
     except:
         flash('You need to be logged in to see your recipes')
@@ -154,11 +193,20 @@ def my_recipes():
 
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
+    """
+    Checks if there is a sessioncookie.
+    Gives feedback that user needs to be logged in to add a recipe.
+    Redirects to log in page if user is not logged in.
+    If logged in, renders page to add recipe.
+    When form is submitted, saves new recipe to database.
+    Gives feedback that new recipe has been saved.
+    """
     try:
         if session["user"]:
             if request.method == "POST":
                 is_public = True if request.form.get("is_public") else False
-                recipe_ingredients = request.form.get("recipe_ingredients").split(";")
+                recipe_ingredients = request.form.get(
+                    "recipe_ingredients").split(";")
                 recipe = {
                     "recipe_name": request.form.get("recipe_name"),
                     "recipe_category": request.form.get("recipe_category"),
@@ -174,8 +222,7 @@ def add_recipe():
                 }
                 mongo.db.recipes.insert_one(recipe)
                 flash("Recipe successfully added")
-                # Dont forget to change url below to my recipes when ready
-                return redirect(url_for("add_recipe"))
+                return redirect(url_for("my_recipes"))
 
             categories = mongo.db.categories.find().sort("recipe_category", 1)
             return render_template("components/forms/add_recipe.html", categories=categories)
@@ -187,6 +234,14 @@ def add_recipe():
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
+    """
+    Checks if there is a sessioncookie.
+    Gives feedback that user needs to be logged in to change a recipe.
+    Redirects to log in page if user is not logged in.
+    If logged in, renders page to change recipe.
+    Loads recipe data into form.
+    When form is submitted, saves revised recipe to database.
+    """
     try:
         if session["user"]:
             if request.method == "POST":
@@ -207,8 +262,6 @@ def edit_recipe(recipe_id):
                 }
                 mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, updated_recipe)
                 flash("Recipe successfully Edited!")
-                # Dont forget to change url below to my recipes when ready
-                
                 return redirect(url_for("my_recipes"))
 
             recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
@@ -223,6 +276,12 @@ def edit_recipe(recipe_id):
 
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
+    """
+    Checks if there is a sessioncookie.
+    Gives feedback that user needs to be logged in to delete a recipe.
+    Redirects to log in page if user is not logged in.
+    If user is logged in, deletes recipe from database.
+    """
     try:
         if session["user"]:
             mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
