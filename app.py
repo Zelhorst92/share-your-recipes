@@ -74,11 +74,11 @@ def register():
 
             if existing_user:
                 flash("Username already in use, please try again")
-                return redirect(url_for("register"))
 
             elif existing_email:
                 flash("Email already in use, please try again")
-                return redirect(url_for("register"))
+
+            return redirect(url_for("register"))
 
             register = {
                 "username": request.form.get("username").lower(),
@@ -93,6 +93,7 @@ def register():
             flash("Registration Successfull")
             return redirect(url_for(
                 "dashboard", username=session["user"]))
+
         return render_template("components/forms/register.html")
 
 
