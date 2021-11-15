@@ -66,7 +66,11 @@
                 <input class="form-check-input" type="checkbox" role="switch" id="is_public" name="is_public">
                 {% endif %}
             </div>
+            <!-- Created By -->
+            <input type="hidden" id="recipe_creator" name="recipe_creator" value="{{ recipe.created_by }}">
+            <!-- Cancel Edit -->
             <a class="btn btn-primary" href="{{ url_for('my_recipes') }}">Cancel</a>
+            <!-- Submit Edit -->
             <button class="btn btn-primary" type="submit">Edit Recipe</button>
         </form>
     </div>

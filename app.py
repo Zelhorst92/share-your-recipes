@@ -263,7 +263,7 @@ def edit_recipe(recipe_id):
                     "recipe_method": request.form.get("recipe_method"),
                     "is_public": is_public,
                     "last_updated": date.today().strftime("%B %d, %Y"),
-                    "created_by": session["user"]
+                    "created_by": request.form.get("recipe_creator")
                 }
                 mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, updated_recipe)
                 flash("Recipe successfully Edited!")
