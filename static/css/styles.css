@@ -21,6 +21,8 @@ body {
     text-align: right;
 }
 
+/* Components */
+
 .flash-box {
     height: 5rem;
     padding-top: 1.5rem;
@@ -45,6 +47,7 @@ body {
 
 .card {
     margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.80);
 }
 
 .card-title {

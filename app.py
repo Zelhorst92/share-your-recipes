@@ -185,7 +185,7 @@ def my_recipes():
         if session["user"]:
             recipes = list(mongo.db.recipes.find(
                 {"$text": {"$search": session["user"]}}).sort("recipe_name", 1))
-            return render_template("pages/my_recipes.html", recipes=recipes)
+            return render_template("pages/recipes.html", recipes=recipes)
     except:
         flash('You need to be logged in to see your recipes')
         return redirect(url_for("login"))
