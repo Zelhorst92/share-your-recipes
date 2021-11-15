@@ -280,13 +280,28 @@ def delete_recipe(recipe_id):
     Checks if there is a sessioncookie.
     Gives feedback that user needs to be logged in to delete a recipe.
     Redirects to log in page if user is not logged in.
-    If user is logged in, deletes recipe from database.
+    If user is logged in;
+    checks if recipe is created by logged in user.
+    checks if logged in user is superuser.
+    If yes on one, deletes recipe.
+    If not, user is not able to delete recipe.
+    Gives feedback that logged in user is not able to delete recipe.
     """
     try:
         if session["user"]:
-            mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
-            flash("Recipe Successfully Deleted")
-            return redirect(url_for("my_recipes"))
+            is_superuser = bool(mongo.db.users.find_one({'username': session["user"], 'superuser': True}))
+            is_mine_to_delete = bool(mongo.db.recipes.find_one({'created_by': session["user"], '_id': ObjectId(recipe_id)}))
+            if is_mine_to_delete:
+                mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+                flash("Recipe Successfully Deleted")
+                return redirect(url_for("my_recipes"))
+            elif is_superuser:
+                mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+                flash("Recipe Successfully Deleted by admin")
+                return redirect(url_for("my_recipes"))
+            else:
+                flash('This is not your recipe to delete')
+                return redirect(url_for("my_recipes"))
 
     except:
         flash('You need to be logged in to delete a recipe')
