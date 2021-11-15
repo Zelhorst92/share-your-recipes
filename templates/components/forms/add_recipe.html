@@ -1,17 +1,19 @@
 {% extends "layout/base.html" %}
 {% block content %}
 
-    <div class="card">
+<div class="row">
+    <div class="card col-12 col-lg-6 offset-lg-3">
         <form class="card-body" method="POST" action="{{ url_for('add_recipe') }}">
             <!-- Recipe Name -->
-            <div class="mb-3">
-                <label for="recipe_name" class="form-label"></label>
+            <div class="mb-2">
+                <label class="mb-0" for="recipe_name" class="form-label">Your Recipe Name:</label>
                 <input type="text" class="form-control" id="recipe_name" name="recipe_name" placeholder="Recipe Name">
             </div>
             <!-- Select Recipe Category -->
-            <div class="mb-3">
-                <label for="recipe_category" class="form-label"></label>
-                <select id="recipe_category" name="recipe_category" class="form-select" aria-label="Default select example">
+            <div class="mb-2">
+                <label class="mb-0" for="recipe_category" class="form-label">Select your recipe category:</label>
+                <select id="recipe_category" name="recipe_category" class="form-select"
+                    aria-label="Default select example">
                     <option selected>Select category</option>
                     {% for category in categories %}
                     <option value="{{ category.recipe_category }}">{{ category.recipe_category }}</option>
@@ -19,44 +21,54 @@
                 </select>
             </div>
             <!-- Short recipe description -->
-            <div class="mb-3">
-                <label for="recipe_description" class="form-label"></label>
+            <div class="mb-2">
+                <label class="mb-0" for="recipe_description" class="form-label">A short description of your
+                    recipe:</label>
                 <input type="text" class="form-control" id="recipe_description" name="recipe_description"
                     placeholder="The most delicious dish ever!">
             </div>
             <!-- Recipe img link -->
-            <div class="mb-3">
-                <label for="recipe_img" class="form-label"></label>
+            <div class="mb-2">
+                <label class="mb-0" for="recipe_img" class="form-label">External link to an image of your finished
+                    recipe
+                    dish:</label>
                 <input type="text" class="form-control" id="recipe_img" name="recipe_img"
                     placeholder="Ie. https://i.imgur.com/YOURIMGCODE.jpeg">
             </div>
-            <!-- servings -->
-            <div class="mb-3">
-                <label for="servings" class="form-label"></label>
-                <input type="text" class="form-control" id="servings" name="servings" placeholder="Number of servings">
-            </div>
-            <!-- Cooking time, in minutes -->
-            <div class="mb-3">
-                <label for="cook_time" class="form-label"></label>
-                <input type="text" class="form-control" id="cook_time" name="cook_time"
-                    placeholder="Cooking time, in minutes">
+            <div class="row mb-2">
+                <!-- servings -->
+                <div class="mb-1 col-6">
+                    <label class="mb-0" for="servings" class="form-label">Number of serving:</label>
+                    <input type="text" class="form-control" id="servings" name="servings"
+                        placeholder="Number of servings">
+                </div>
+                <!-- Cooking time -->
+                <div class="mb-1 col-6">
+                    <label class="mb-0" for="cook_time" class="form-label">Time to cook, in minutes:</label>
+                    <input type="text" class="form-control" id="cook_time" name="cook_time"
+                        placeholder="Cooking time, in minutes">
+                </div>
             </div>
             <!-- Recipe Ingredients -->
-            <div class="mb-3">
-                <label for="recipe_ingredients" class="form-label">Ingredients</label>
-                <textarea class="form-control" id="recipe_ingredients" name="recipe_ingredients" rows="5"></textarea>
+            <div class="mb-1">
+                <label for="recipe_ingredients" class="form-label">Ingredients, seperated by a ";"</label>
+                <textarea class="form-control" id="recipe_ingredients" name="recipe_ingredients" rows="2"></textarea>
             </div>
             <!-- Recipe Method -->
-            <div class="mb-3">
+            <div class="mb-1">
                 <label for="recipe_method" class="form-label">Method</label>
-                <textarea class="form-control" id="recipe_method" name="recipe_method" rows="5"></textarea>
+                <textarea class="form-control" id="recipe_method" name="recipe_method" rows="3"></textarea>
             </div>
-            <!-- Public or Private Recipe -->
-            <div class="form-check form-switch">
-                <label class="form-check-label" for="is_public">Public Recipe</label>
-                <input class="form-check-input" type="checkbox" role="switch" id="is_public" name="is_public" checked>
+            <div class="row justify-content-between mt-4">
+                <!-- Public or Private Recipe -->
+                <div class="col-6 form-check form-switch">
+                    <label class="form-check-label" for="is_public">Public Recipe</label>
+                    <input class="form-check-input is-public-switch" type="checkbox" role="switch" id="is_public"
+                        name="is_public" checked>
+                </div>
+                <button class=" col-6 btn main-btn" type="submit">Add Recipe</button>
             </div>
-            <button class="btn btn-primary" type="submit">Add Recipe</button>
         </form>
     </div>
+</div>
 {% endblock %}

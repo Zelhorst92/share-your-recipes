@@ -58,6 +58,11 @@ body {
     padding: 1.5rem;
 }
 
+.is-public-switch[type=checkbox]:checked {
+    background-color: #375412;
+    border-color: #375412;
+}
+
 .image {
     height: 25rem;
     width: 100%rem;
