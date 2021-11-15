@@ -28,17 +28,21 @@ def home():
 def search():
     inputquery = request.form.get("inputquery")
     categoryquery = request.form.get("categoryquery")
-    if inputquery == "" and categoryquery == "":
-        recipes = list(mongo.db.recipes.find().sort("recipe_name", 1))
-        return render_template("pages/recipes.html", recipes=recipes)
-    elif inputquery == "":
-        recipes = list(mongo.db.recipes.find(
-            {"$text": {"$search": categoryquery}}).sort("recipe_name", 1))
-        return render_template("pages/recipes.html", recipes=recipes)
-    else:
-        recipes = list(mongo.db.recipes.find(
-            {"$text": {"$search": inputquery}}).sort("recipe_name", 1))
-        return render_template("pages/recipes.html", recipes=recipes)
+    try:
+        if session["user"]:
+            is_superuser = bool(mongo.db.users.find_one({'username': session["user"], 'superuser': True}))
+    except:
+        is_superuser = False
+    finally:
+        if inputquery == "" and categoryquery == "":
+            recipes = list(mongo.db.recipes.find().sort("recipe_name", 1))
+        elif inputquery == "":
+            recipes = list(mongo.db.recipes.find(
+                {"$text": {"$search": categoryquery}}).sort("recipe_name", 1))
+        else:
+            recipes = list(mongo.db.recipes.find(
+                {"$text": {"$search": inputquery}}).sort("recipe_name", 1))
+    return render_template("pages/recipes.html", recipes=recipes, is_superuser=is_superuser)
 
 
 @app.route("/register", methods=["GET", "POST"])
