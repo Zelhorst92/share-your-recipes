@@ -29,22 +29,22 @@ def home():
 def search():
     inputquery = request.form.get("inputquery")
     categoryquery = request.form.get("categoryquery")
-    try:
-        if session["user"]:
-            is_superuser = bool(
-                mongo.db.users.find_one(
-                    {'username': session["user"], 'superuser': True}))
-    except:
+    if session.get("user"):
+        is_superuser = bool(
+            mongo.db.users.find_one(
+                {'username': session["user"], 'superuser': True}))
+    else:
         is_superuser = False
-    finally:
-        if inputquery == "" and categoryquery == "":
-            recipes = list(mongo.db.recipes.find().sort("recipe_name", 1))
-        elif inputquery == "":
-            recipes = list(mongo.db.recipes.find(
-                {"$text": {"$search": categoryquery}}).sort("recipe_name", 1))
-        else:
-            recipes = list(mongo.db.recipes.find(
-                {"$text": {"$search": inputquery}}).sort("recipe_name", 1))
+
+    if inputquery == "" and categoryquery == "":
+        recipes = list(mongo.db.recipes.find().sort("recipe_name", 1))
+    elif inputquery == "":
+        recipes = list(mongo.db.recipes.find(
+            {"$text": {"$search": categoryquery}}).sort("recipe_name", 1))
+    else:
+        recipes = list(mongo.db.recipes.find(
+            {"$text": {"$search": inputquery}}).sort("recipe_name", 1))
+
     return render_template(
         "pages/recipes.html", recipes=recipes, is_superuser=is_superuser)
 
@@ -63,13 +63,11 @@ def register():
     After registration is successfull,
     creates session cookie and redirects to users dashboard.
     """
-    try:
-        if session["user"]:
-            flash('You are already logged in, no need to register again')
+    if session.get("user"):
+        flash('You are already logged in, no need to register again')
         return redirect(url_for(
             "dashboard", username=session["user"]))
-
-    except:
+    else:
         if request.method == "POST":
             existing_user = mongo.db.users.find_one(
                 {"username": request.form.get("username").lower()})
@@ -92,7 +90,6 @@ def register():
                 "superuser": False
             }
             mongo.db.users.insert_one(to_register)
-
             session["user"] = request.form.get("username").lower()
             flash("Registration Successfull")
             return redirect(url_for(
@@ -114,13 +111,11 @@ def login():
     After login is successfull,
     creates session cookie and redirects to user dashboard.
     """
-    try:
-        if session["user"]:
-            flash('You are already logged in')
+    if session.get("user"):
+        flash('You are already logged in')
         return redirect(url_for(
             "dashboard", username=session["user"]))
-
-    except:
+    else:
         if request.method == "POST":
             existing_user = mongo.db.users.find_one(
                 {"username": request.form.get("username").lower()})
@@ -129,7 +124,8 @@ def login():
                     existing_user["password"], request.form.get(
                         "password")):
                     session["user"] = request.form.get("username").lower()
-                    flash("Welcome, {}".format(request.form.get("username")))
+                    flash("Welcome, {}".format(
+                        request.form.get("username")))
                     return redirect(url_for(
                         "dashboard", username=session["user"]))
                 else:
@@ -138,7 +134,6 @@ def login():
             else:
                 flash("That's incorrect, please try again.")
                 return redirect(url_for("login"))
-
         return render_template("components/forms/login.html")
 
 
@@ -151,12 +146,11 @@ def dashboard(username):
     Show correct dashboard according to session cookie.
     If there is no session cookie, redirects to log in page.
     """
-    try:
-        if session["user"]:
-            username = mongo.db.users.find_one(
-                {"username": session["user"]})["username"]
-            return render_template("pages/dashboard.html", username=username)
-    except:
+    if session.get("user"):
+        username = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
+        return render_template("pages/dashboard.html", username=username)
+    else:
         flash('You need to be logged in to see your dashboard')
         return redirect(url_for("login"))
 
@@ -190,13 +184,12 @@ def my_recipes():
     Redirects to log in page if user is not logged in.
     If logged in, shows all recipes created by user.
     """
-    try:
-        if session["user"]:
-            recipes = list(mongo.db.recipes.find(
-                {"$text": {"$search": session["user"]}}).sort(
-                    "recipe_name", 1))
-            return render_template("pages/recipes.html", recipes=recipes)
-    except:
+    if session.get("user"):
+        recipes = list(mongo.db.recipes.find(
+            {"$text": {"$search": session["user"]}}).sort(
+                "recipe_name", 1))
+        return render_template("pages/recipes.html", recipes=recipes)
+    else:
         flash('You need to be logged in to see your recipes')
         return redirect(url_for("login"))
 
@@ -211,35 +204,34 @@ def add_recipe():
     When form is submitted, saves new recipe to database.
     Gives feedback that new recipe has been saved.
     """
-    try:
-        if session["user"]:
-            if request.method == "POST":
-                is_public = True if request.form.get("is_public") else False
-                recipe_ingredients = request.form.get(
-                    "recipe_ingredients").split(";")
-                recipe = {
-                    "recipe_name": request.form.get("recipe_name"),
-                    "recipe_category": request.form.get("recipe_category"),
-                    "recipe_img": request.form.get("recipe_img"),
-                    "servings": request.form.get("servings"),
-                    "cook_time": request.form.get("cook_time"),
-                    "recipe_description": request.form.get(
-                        "recipe_description"),
-                    "recipe_ingredients": recipe_ingredients,
-                    "recipe_method": request.form.get("recipe_method"),
-                    "is_public": is_public,
-                    "last_updated": date.today().strftime("%B %d, %Y"),
-                    "created_by": session["user"]
-                }
-                mongo.db.recipes.insert_one(recipe)
-                flash("Recipe successfully added")
-                return redirect(url_for("my_recipes"))
+    if session.get("user"):
+        if request.method == "POST":
+            is_public = True if request.form.get("is_public") else False
+            recipe_ingredients = request.form.get(
+                "recipe_ingredients").split(";")
+            recipe = {
+                "recipe_name": request.form.get("recipe_name"),
+                "recipe_category": request.form.get("recipe_category"),
+                "recipe_img": request.form.get("recipe_img"),
+                "servings": request.form.get("servings"),
+                "cook_time": request.form.get("cook_time"),
+                "recipe_description": request.form.get(
+                    "recipe_description"),
+                "recipe_ingredients": recipe_ingredients,
+                "recipe_method": request.form.get("recipe_method"),
+                "is_public": is_public,
+                "last_updated": date.today().strftime("%B %d, %Y"),
+                "created_by": session["user"]
+            }
+            mongo.db.recipes.insert_one(recipe)
+            flash("Recipe successfully added")
+            return redirect(url_for("my_recipes"))
 
-            categories = mongo.db.categories.find().sort("recipe_category", 1)
-            return render_template(
-                "components/forms/add_recipe.html", categories=categories)
+        categories = mongo.db.categories.find().sort("recipe_category", 1)
+        return render_template(
+            "components/forms/add_recipe.html", categories=categories)
 
-    except:
+    else:
         flash('You need to be logged in to add a recipe')
         return redirect(url_for("login"))
 
@@ -254,38 +246,37 @@ def edit_recipe(recipe_id):
     Loads recipe data into form.
     When form is submitted, saves revised recipe to database.
     """
-    try:
-        if session["user"]:
-            if request.method == "POST":
-                is_public = True if request.form.get("is_public") else False
-                recipe_ingredients = request.form.get(
-                    "recipe_ingredients").split(";")
-                updated_recipe = {
-                    "recipe_name": request.form.get("recipe_name"),
-                    "recipe_category": request.form.get("recipe_category"),
-                    "recipe_img": request.form.get("recipe_img"),
-                    "servings": request.form.get("servings"),
-                    "cook_time": request.form.get("cook_time"),
-                    "recipe_description": request.form.get(
-                        "recipe_description"),
-                    "recipe_ingredients": recipe_ingredients,
-                    "recipe_method": request.form.get("recipe_method"),
-                    "is_public": is_public,
-                    "last_updated": date.today().strftime("%B %d, %Y"),
-                    "created_by": request.form.get("recipe_creator")
-                }
-                mongo.db.recipes.update(
-                    {"_id": ObjectId(recipe_id)}, updated_recipe)
-                flash("Recipe successfully Edited!")
-                return redirect(url_for("my_recipes"))
+    if session.get("user"):
+        if request.method == "POST":
+            is_public = True if request.form.get("is_public") else False
+            recipe_ingredients = request.form.get(
+                "recipe_ingredients").split(";")
+            updated_recipe = {
+                "recipe_name": request.form.get("recipe_name"),
+                "recipe_category": request.form.get("recipe_category"),
+                "recipe_img": request.form.get("recipe_img"),
+                "servings": request.form.get("servings"),
+                "cook_time": request.form.get("cook_time"),
+                "recipe_description": request.form.get(
+                    "recipe_description"),
+                "recipe_ingredients": recipe_ingredients,
+                "recipe_method": request.form.get("recipe_method"),
+                "is_public": is_public,
+                "last_updated": date.today().strftime("%B %d, %Y"),
+                "created_by": request.form.get("recipe_creator")
+            }
+            mongo.db.recipes.update(
+                {"_id": ObjectId(recipe_id)}, updated_recipe)
+            flash("Recipe successfully Edited!")
+            return redirect(url_for("my_recipes"))
 
-            recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-            categories = mongo.db.categories.find().sort("recipe_category", 1)
-            return render_template(
-                "components/forms/edit_recipe.html",
-                recipe=recipe, categories=categories)
+        recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+        categories = mongo.db.categories.find().sort("recipe_category", 1)
+        return render_template(
+            "components/forms/edit_recipe.html",
+            recipe=recipe, categories=categories)
 
-    except:
+    else:
         flash('You need to be logged in to change a recipe')
         return redirect(url_for("login"))
 
@@ -303,28 +294,27 @@ def delete_recipe(recipe_id):
     If not, user is not able to delete recipe.
     Gives feedback that logged in user is not able to delete recipe.
     """
-    try:
-        if session["user"]:
-            is_superuser = bool(
-                mongo.db.users.find_one(
-                    {'username': session["user"], 'superuser': True}))
-            is_mine_to_delete = bool(
-                mongo.db.recipes.find_one(
-                    {'created_by': session["user"], '_id': ObjectId(
-                        recipe_id)}))
-            if is_mine_to_delete:
-                mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
-                flash("Recipe Successfully Deleted")
-                return redirect(url_for("my_recipes"))
-            elif is_superuser:
-                mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
-                flash("Recipe Successfully Deleted by admin")
-                return redirect(url_for("my_recipes"))
-            else:
-                flash('This is not your recipe to delete')
-                return redirect(url_for("my_recipes"))
+    if session.get("user"):
+        is_superuser = bool(
+            mongo.db.users.find_one(
+                {'username': session["user"], 'superuser': True}))
+        is_mine_to_delete = bool(
+            mongo.db.recipes.find_one(
+                {'created_by': session["user"], '_id': ObjectId(
+                    recipe_id)}))
+        if is_mine_to_delete:
+            mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+            flash("Recipe Successfully Deleted")
+            return redirect(url_for("my_recipes"))
+        elif is_superuser:
+            mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+            flash("Recipe Successfully Deleted by admin")
+            return redirect(url_for("my_recipes"))
+        else:
+            flash('This is not your recipe to delete')
+            return redirect(url_for("my_recipes"))
 
-    except:
+    else:
         flash('You need to be logged in to delete a recipe')
         return redirect(url_for("login"))
 
