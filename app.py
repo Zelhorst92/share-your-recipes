@@ -321,12 +321,20 @@ def delete_recipe(recipe_id):
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template("pages/404.html", error=error), 404
+    """
+    404 error handler
+    """
+    flash('Something went wrong')
+    return render_template("pages/error.html", error=error), 404
 
 
 @app.errorhandler(500)
 def server_error(error):
-    return render_template("pages/500.html", error=error), 500
+    """
+    500 error handler
+    """
+    flash('Something went wrong')
+    return render_template("pages/error.html", error=error), 500
 
 
 if __name__ == "__main__":

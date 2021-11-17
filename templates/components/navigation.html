@@ -8,12 +8,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{{ url_for('home')}}">Home</a>
+                    <a class="nav-link" aria-current="page" href="{{ url_for('home')}}">Search Recipes</a>
                 </li>
                 {% if session.user %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('logout')}}">Logout</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('dashboard', username=session['user']) }}">My Dashboard</a>
                 </li>
@@ -26,9 +23,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('logout')}}">Logout</a>
                 </li>
-<!--                 <li class="nav-item">
-                    <a class="nav-link" href="#">Edit Categories</a>
-                </li> -->
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('login')}}">Login</a>
