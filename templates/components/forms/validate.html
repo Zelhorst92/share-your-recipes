@@ -1,0 +1,50 @@
+{% extends "layout/base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-10 offset-1 col-xl-8 offset-xl-2">
+        <div class="card text-center">
+            {% if registration == True %}
+            <form method="POST" action="{{ url_for('register') }}">
+                <div class="card-body">
+                    <h5 class="card-title">Registration</h5>
+            {% else %}
+            <form method="POST" action="{{ url_for('login') }}">
+                <div class="card-body">
+                    <h5 class="card-title">Log in</h5>
+            {% endif %}
+                    <!-- Username -->
+                    <div class="input-group mb-3">
+                        <input id="username" name="username" type="text" minlength="5" maxlength="20" pattern="^[a-zA-Z0-9]{5,20}$" class="form-control" placeholder="Username"
+                            aria-label="Username" required>
+                        <label for="username"></label>
+                    </div>
+                    <!-- Password -->
+                    <div class="input-group mb-3">
+                        <input id="password" name="password" type="password" minlength="5" maxlength="20" pattern="^[a-zA-Z0-9]{5,20}$" class="form-control" placeholder="Password"
+                            aria-label="Password" required>
+                        <label for="password"></label>
+                    </div>
+                    {% if registration == True %}
+                    <!-- Email -->
+                    <div class="input-group mb-3">
+                        <input id="email" name="email" type="email" minlength="5" maxlength="20" class="form-control" placeholder="Email"
+                            aria-label="Email" required>
+                        <label for="email"></label>
+                    </div>
+                    <button type="submit" class="input-group btn main-btn">Register</button>
+                    {% else %}
+                    <button type="submit" class="input-group btn main-btn">Login</button>
+                    {% endif %}
+                </div>
+            </form>
+            {% if registration == True %}
+            <a href="{{ url_for('login')}}" class="text-center">Or would you like to login?</a>
+            {% else %}
+            <a href="{{ url_for('register')}}" class="text-center">Or would you like to register?</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

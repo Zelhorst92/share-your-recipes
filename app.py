@@ -95,7 +95,9 @@ def register():
             return redirect(url_for(
                 "dashboard", username=session["user"]))
 
-        return render_template("components/forms/register.html")
+        registration = True
+        return render_template(
+            "components/forms/validate.html", registration=registration)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -134,7 +136,7 @@ def login():
             else:
                 flash("That's incorrect, please try again.")
                 return redirect(url_for("login"))
-        return render_template("components/forms/login.html")
+        return render_template("components/forms/validate.html")
 
 
 @app.route("/dashboard/<username>", methods=["GET", "POST"])
