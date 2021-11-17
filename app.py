@@ -270,11 +270,12 @@ def edit_recipe(recipe_id):
             flash("Recipe successfully Edited!")
             return redirect(url_for("my_recipes"))
 
+        edit = True
         recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
         categories = mongo.db.categories.find().sort("recipe_category", 1)
         return render_template(
-            "components/forms/edit_recipe.html",
-            recipe=recipe, categories=categories)
+            "components/forms/add_recipe.html",
+            recipe=recipe, categories=categories, edit=edit)
 
     else:
         flash('You need to be logged in to change a recipe')
