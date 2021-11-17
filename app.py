@@ -29,6 +29,12 @@ def home():
 def search():
     inputquery = request.form.get("inputquery")
     categoryquery = request.form.get("categoryquery")
+    if session.get("user"):
+        is_superuser = bool(
+            mongo.db.users.find_one(
+                {'username': session["user"], 'superuser': True}))
+    else:
+        is_superuser = False
 
     if inputquery == "" and categoryquery == "":
         recipes = list(mongo.db.recipes.find().sort("recipe_name", 1))
@@ -40,7 +46,7 @@ def search():
             {"$text": {"$search": inputquery}}).sort("recipe_name", 1))
 
     return render_template(
-        "pages/recipes.html", recipes=recipes)
+        "pages/recipes.html", recipes=recipes, is_superuser=is_superuser)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -118,9 +124,6 @@ def login():
                     existing_user["password"], request.form.get(
                         "password")):
                     session["user"] = request.form.get("username").lower()
-                    session["is_superuser"] = bool(
-                        mongo.db.users.find_one(
-                            {'username': session["user"], 'superuser': True}))
                     flash("Welcome, {}".format(
                         request.form.get("username")))
                     return redirect(url_for(
