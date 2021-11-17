@@ -21,12 +21,18 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def home():
+    """
+    Renders searchbar with appropriate recipe categories.
+    """
     categories = mongo.db.categories.find().sort("recipe_category", 1)
     return render_template("components/home.html", categories=categories)
 
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
+    """
+    Search function that find recipes from the database with 2 parameters.
+    """
     inputquery = request.form.get("inputquery")
     categoryquery = request.form.get("categoryquery")
     if session.get("user"):
@@ -53,15 +59,8 @@ def search():
 def register():
     """
     Registers an account for the user.
-    Checks if there is a sessioncookie.
-    Cannot register if user is already logged in.
-    Gives feedback that user is already logged in.
-    Redirects to dashboard if user is  already logged in.
     Checks if username and/or emailadress are already in use.
-    Cannot register with same username or emailadress.
-    Gives feedback if username and/or email adress is already in use.
-    After registration is successfull,
-    creates session cookie and redirects to users dashboard.
+    Creates session cookie and redirects to users dashboard.
     """
     if session.get("user"):
         flash('You are already logged in, no need to register again')
@@ -104,14 +103,8 @@ def register():
 def login():
     """
     Login function with username and password.
-    Checks if there is a sessioncookie.
-    Cannot log in if user is already logged in.
-    Gives feedback that user is already logged in.
-    Redirects to dashboard if user is  already logged in.
     Checks if username and password are a correct match.
-    Gives feedback if username and/or password is incorrect.
-    After login is successfull,
-    creates session cookie and redirects to user dashboard.
+    Creates session cookie and redirects to user dashboard.
     """
     if session.get("user"):
         flash('You are already logged in')
@@ -142,9 +135,6 @@ def login():
 @app.route("/dashboard/<username>", methods=["GET", "POST"])
 def dashboard(username):
     """
-    Checks if there is a sessioncookie.
-    Gives feedback that user needs to be logged in to see dashboard.
-    Redirects to log in page if user is not logged in.
     Show correct dashboard according to session cookie.
     If there is no session cookie, redirects to log in page.
     """
@@ -161,7 +151,6 @@ def dashboard(username):
 def logout():
     """
     Removes user session cookie.
-    Gives feedback that user has been logged out.
     Redirects to log in page.
     """
     flash("You have been logged out")
@@ -181,9 +170,6 @@ def view_recipe(recipe_id):
 @app.route("/my_recipes")
 def my_recipes():
     """
-    Checks if there is a sessioncookie.
-    Gives feedback that user needs to be logged in to see its recipes.
-    Redirects to log in page if user is not logged in.
     If logged in, shows all recipes created by user.
     """
     if session.get("user"):
@@ -199,12 +185,9 @@ def my_recipes():
 @app.route("/recipe/add", methods=["GET", "POST"])
 def add_recipe():
     """
-    Checks if there is a sessioncookie.
-    Gives feedback that user needs to be logged in to add a recipe.
-    Redirects to log in page if user is not logged in.
-    If logged in, renders page to add recipe.
-    When form is submitted, saves new recipe to database.
-    Gives feedback that new recipe has been saved.
+    Renders page to add a recipe.
+    When form is submitted, saves new recipe to database
+    and redirects user to my_recipes page.
     """
     if session.get("user"):
         if request.method == "POST":
@@ -241,12 +224,10 @@ def add_recipe():
 @app.route("/recipe/edit/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     """
-    Checks if there is a sessioncookie.
-    Gives feedback that user needs to be logged in to change a recipe.
-    Redirects to log in page if user is not logged in.
-    If logged in, renders page to change recipe.
+    Renders page to change recipe.
     Loads recipe data into form.
-    When form is submitted, saves revised recipe to database.
+    When form is submitted, saves revised recipe to database
+    and redirects user to my_recipes page.
     """
     if session.get("user"):
         if request.method == "POST":
@@ -287,15 +268,11 @@ def edit_recipe(recipe_id):
 @app.route("/recipe/delete/<recipe_id>")
 def delete_recipe(recipe_id):
     """
-    Checks if there is a sessioncookie.
-    Gives feedback that user needs to be logged in to delete a recipe.
-    Redirects to log in page if user is not logged in.
     If user is logged in;
     checks if recipe is created by logged in user.
     checks if logged in user is superuser.
     If yes on one, deletes recipe.
     If not, user is not able to delete recipe.
-    Gives feedback that logged in user is not able to delete recipe.
     """
     if session.get("user"):
         is_superuser = bool(
