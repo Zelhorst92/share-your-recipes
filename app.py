@@ -1,10 +1,11 @@
 import os
+from datetime import date
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask import (
     Flask, flash, render_template, redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import date
+
 if os.path.exists("env.py"):
     import env
 
@@ -77,11 +78,11 @@ def register():
 
             if existing_user:
                 flash("Username already in use, please try again")
+                return redirect(url_for("register"))
 
             elif existing_email:
                 flash("Email already in use, please try again")
-
-            return redirect(url_for("register"))
+                return redirect(url_for("register"))
 
             to_register = {
                 "username": request.form.get("username").lower(),
@@ -172,14 +173,13 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/view_recipe", methods=["GET", "POST"])
-def view_recipe():
+@app.route("/recipe/view/<recipe_id>", methods=["GET", "POST"])
+def view_recipe(recipe_id):
     """
-    Finds full recipe with recipe id.
+    Finds recipe with recipe id.
     """
-    full_recipe = request.form.get("full_recipe")
-    recipe = list(mongo.db.recipes.find({"_id": ObjectId(full_recipe)}))
-    return render_template("pages/recipe.html", recipes=recipe)
+    recipe = list(mongo.db.recipes.find({"_id": ObjectId(recipe_id)}))
+    return render_template("pages/recipe.html", recipe=recipe)
 
 
 @app.route("/my_recipes")
@@ -201,7 +201,7 @@ def my_recipes():
         return redirect(url_for("login"))
 
 
-@app.route("/add_recipe", methods=["GET", "POST"])
+@app.route("/recipe/add", methods=["GET", "POST"])
 def add_recipe():
     """
     Checks if there is a sessioncookie.
@@ -244,7 +244,7 @@ def add_recipe():
         return redirect(url_for("login"))
 
 
-@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
+@app.route("/recipe/edit/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     """
     Checks if there is a sessioncookie.
@@ -290,7 +290,7 @@ def edit_recipe(recipe_id):
         return redirect(url_for("login"))
 
 
-@app.route("/delete_recipe/<recipe_id>")
+@app.route("/recipe/delete/<recipe_id>")
 def delete_recipe(recipe_id):
     """
     Checks if there is a sessioncookie.
@@ -310,7 +310,8 @@ def delete_recipe(recipe_id):
                     {'username': session["user"], 'superuser': True}))
             is_mine_to_delete = bool(
                 mongo.db.recipes.find_one(
-                    {'created_by': session["user"], '_id': ObjectId(recipe_id)}))
+                    {'created_by': session["user"], '_id': ObjectId(
+                        recipe_id)}))
             if is_mine_to_delete:
                 mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
                 flash("Recipe Successfully Deleted")
