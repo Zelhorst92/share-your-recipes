@@ -45,6 +45,22 @@ body {
     background-color: #375412;
 }
 
+.edit-btn {
+    background-color: #D5D6D8;
+}
+
+.edit-btn:hover {
+    background-color: #8C8C8C;
+}
+
+.delete-btn {
+    background-color: #D9351C;
+}
+
+.delete-btn:hover {
+    background-color: #97271B;
+}
+
 .card {
     margin-bottom: 1rem;
     background: rgba(255, 255, 255, 0.80);
