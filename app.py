@@ -329,6 +329,16 @@ def delete_recipe(recipe_id):
         return redirect(url_for("login"))
 
 
+@app.errorhandler(404)
+def not_found(error):
+    return render_template("pages/404.html", error=error), 404
+
+
+@app.errorhandler(500)
+def server_error(error):
+    return render_template("pages/500.html", error=error), 500
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
