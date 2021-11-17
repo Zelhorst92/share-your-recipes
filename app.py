@@ -265,35 +265,36 @@ def edit_recipe(recipe_id):
         return redirect(url_for("login"))
 
 
-@app.route("/recipe/delete/<recipe_id>")
-def delete_recipe(recipe_id):
+@app.route("/recipe/delete", methods=["POST"])
+def delete_recipe():
     """
-    If user is logged in;
-    checks if recipe is created by logged in user.
-    checks if logged in user is superuser.
+    Checks if user created recipe or is superuser.
     If yes on one, deletes recipe.
     If not, user is not able to delete recipe.
     """
     if session.get("user"):
-        is_superuser = bool(
-            mongo.db.users.find_one(
-                {'username': session["user"], 'superuser': True}))
-        is_mine_to_delete = bool(
-            mongo.db.recipes.find_one(
-                {'created_by': session["user"], '_id': ObjectId(
-                    recipe_id)}))
-        if is_mine_to_delete:
-            mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
-            flash("Recipe Successfully Deleted")
-            return redirect(url_for("my_recipes"))
-        elif is_superuser:
-            mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
-            flash("Recipe Successfully Deleted by admin")
-            return redirect(url_for("my_recipes"))
-        else:
-            flash('This is not your recipe to delete')
-            return redirect(url_for("my_recipes"))
-
+        if request.method == "POST":
+            recipe_to_delete_id = request.form.get("recipe_to_delete")
+            is_superuser = bool(
+                mongo.db.users.find_one(
+                    {'username': session["user"], 'superuser': True}))
+            is_mine_to_delete = bool(
+                mongo.db.recipes.find_one(
+                    {'created_by': session["user"], '_id': ObjectId(
+                        recipe_to_delete_id)}))
+            if is_mine_to_delete:
+                mongo.db.recipes.delete_one(
+                    {"_id": ObjectId(recipe_to_delete_id)})
+                flash("Recipe Successfully Deleted")
+                return redirect(url_for("my_recipes"))
+            elif is_superuser:
+                mongo.db.recipes.delete_one(
+                    {"_id": ObjectId(recipe_to_delete_id)})
+                flash("Recipe Successfully Deleted by admin")
+                return redirect(url_for("my_recipes"))
+            else:
+                flash('This is not your recipe to delete')
+                return redirect(url_for("my_recipes"))
     else:
         flash('You need to be logged in to delete a recipe')
         return redirect(url_for("login"))

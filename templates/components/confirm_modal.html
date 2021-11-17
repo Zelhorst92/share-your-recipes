@@ -11,7 +11,11 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-				<a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="btn delete-btn">Confirm</a>
+				<form method="POST" action="{{ url_for('delete_recipe', recipe_id=recipe._id) }}">
+					<input type="hidden" id="recipe_to_delete" name="recipe_to_delete" value="{{ recipe._id }}">
+					<button type="submit" class="btn delete-btn">Confirm</a>
+				</form>
+				
 			</div>
 		</div>
 	</div>
