@@ -4,7 +4,7 @@
 <div class="row">
 	
 	{% for recipe in recipes %}
-	{% if recipe.is_public == True or session.user|lower == recipe.created_by|lower%}
+	{% if recipe.is_public == True or session.user|lower == recipe.created_by|lower or is_superuser%}
 	<div class="col-4 offset-1 card">
 		<div class="card-body">
 			<h5 class="card-title">Recipe Name: {{ recipe.recipe_name }}, {{ recipe.recipe_category }} </h5>
@@ -12,10 +12,6 @@
 			<div class="row">
 				<div class="d-grid d-flex justify-content-around">
 					<a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}" class="btn btn-primary">View Recipe</a>
-<!-- 					<form method="POST" action="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
-						<input id="full_recipe" name="full_recipe" type="hidden" value="{{ recipe._id }}">
-						<button class="btn btn-primary" type="submit">View Recipe</button>
-					</form> -->
 					{% if session.user|lower == recipe.created_by|lower or is_superuser %}
 					<a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-primary">Edit Recipe</a>
 					<a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="btn btn-primary">Delete
