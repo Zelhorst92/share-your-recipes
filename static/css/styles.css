@@ -48,8 +48,8 @@ body {
 /* ---- Flashbox */
 
 .flash-box {
-    height: 7rem;
-    padding-top: 1.5rem;
+    height: 8rem;
+    padding: 1.5rem 0;
 }
 
 .flash-message {
