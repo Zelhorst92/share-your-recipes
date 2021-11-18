@@ -298,35 +298,131 @@ This is done in a seperate file:
 ---
 
 # Deployment
-## Deployment via GitHub Pages
-The website was deployed via GitHub by following the steps below:
--   Go to the repository you want to deply on github.
--   Click on the **Settings** tab
--   Go to **Pages** on the left side navigation
--   In the **Source** section, there is a dropdown menu; select the **master** branch and **root**. Click **save**.
--   Within a short moment the website is live.
-    You will see a link on the top of the GitHub Pages section, either in a blue or green field.
-    -   Example on how the **link** will look like and coincidently the link to the current website: [https://zelhorst92.github.io/GeKnoQu/](https://zelhorst92.github.io/GeKnoQu/ "Link to the deployed website")
--   Any time you will push to Github, the update will be visible after a short while.
-
-## Deployment of the website locally:
--   Click on the dropdown menu which says **Code** on the Github Repository.
--   You will see several options; 
-    -   **Clone with a link**, 
-    -   **Open with GitHub Desktop** 
-    -   **download ZIP**
+## Clone the repository
+- Click on the dropdown menu which says **Code** on the Github Repository.
+- You will see several options; 
+    - **Clone with a link**, 
+    - **Open with GitHub Desktop** 
+    - **download ZIP**
 
 #### Clone with a link
--   When you want to clone; use the **Clone with HTTPS option**, copy the link displayed.
--   Open your IDE and go to the terminal.
--   Change the working directory to the location where the cloned directory is to go.
--   Use the **git clone** command and paste the url copied in the second step.
+- When you want to clone; use the **Clone with HTTPS option**, copy the link displayed.
+- Open your IDE and go to the terminal.
+- Change the working directory to the location where the cloned directory is to go.
+- Use the **git clone** command and paste the url copied in the second step.
 
 #### Open with GitHub Desktop
--   If you have GitHub Desktop installed, you can click on this and it will import and clone the repository for you, after selecting where it needs to go.
+- If you have GitHub Desktop installed, you can click on this and it will import and clone the repository for you, after selecting where it needs to go.
 
 #### Download the ZIP
--   You can also download the whole repository in a zip file and use the IDE software you want.
+- You can also download the whole repository in a zip file and use the IDE software you want.
+
+## Prepare the Repository
+### Install requirements
+The webapplication relies on several modules and libraries to function. You can find these in the requirements.txt. If you are using an IDE which support [pip](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) you can use the following command:
+
+  ```
+  pip3 install -r requirements.txt
+  ```
+
+If you are not using or installing pip, find the requirements.txt and install the required modules via any other means. The application will not work without.
+
+### Create env file
+In your IDE, create a file containing your environmental variables called env.py at root level. This is because env.py contains private information such as your secret key and is therefore not added to the repository from the get go. It needs to contain the following:
+
+  ```
+  import os
+
+  os.environ.setdefault("IP", "0.0.0.0")
+  os.environ.setdefault("PORT", "5000")
+  os.environ.setdefault("SECRET_KEY", "YOUR_SECRET_KEY")
+  os.environ.setdefault("MONGO_URI", "YOUR_MONGODB_URI")
+  os.environ.setdefault("MONGO_DBNAME", "YOUR_DATABASE_NAME")
+  os.environ.setdefault("DEBUG", "1")
+  ```
+
+As you can see, the **SECRET_KEY**, **MONGO_URI** and **MONGO_DBNAME** are placeholders. You have to provide those yourself. The SECRET_KEY can be anything, but the longer the key, the safer it is. The MONGO_URI and DATABASE_NAME will made when you set up the database. You should add the env.py to your .gitignore file, so that others have no access to it.
+
+### Create or Update Procfile and requirements.txt
+To run the application on for example Heroku, you need an up to date requirements.txt and procfile. Both are included but if you added anything, you need to update them. You can do that with the following commands in your IDE terminal:
+- For your requirements.txt:
+
+  ```
+  pip3 freeze --local > requirements.txt
+  ```
+- For your procfile:
+
+  ```
+  echo web: python app.py > Procfile
+  ```
+
+- For this application the procfile should contain the following line:
+    ```
+    web: python app.py
+    ```
+- If you have more .py files, the procfile should reflect that.
+
+## Prepare the Database
+### MongoDB
+- Log in or sign-up to [MongoDB](https://www.mongodb.com/).
+- Under deployment and databases, create a new cluster. Green button on the right.
+- Within the cluster, go to collections and create a new Database.
+  - Call this recipe_manager.
+  - This is your databasename, use this in your env.py.
+- Then in the new database recipe_manager you want to create 3 collections; categories, recipes and users.
+  - See [Database Structure](#database-structure) on how to structure them. There should be 3.
+    - keep in mind that the _id is genenated by mongoDB itself and does not have to be included.
+### Mongo_URI
+- To find your mongo_URI link for in your env.py file, go back to main page of the cluster you made earlier.
+- Click on the Connect button, on the right side of your clusters name.
+- Select 'Connect to your application.
+- Select the version of python you are using and copy the link provided.
+  - Use this link in your env.py
+  - Yes, within the double quotations.
+
+### Set up Database User
+- To set up a user that can read and write to your database go to Database Access, on the left.
+- Add a new database user.
+
+### Set up network access
+- Go to Network Access, on the left.
+- Add 0.0.0.0/0 to the IP Adress list.
+
+## Run Application locally
+- If you have installed all the requirements, set up the database and made the env.py file, the application is ready the be run locally.
+- run the following command in your IDE terminal:
+
+  ```
+  python3 app.py. 
+  ```
+
+## Deploy application to Heroku
+- Log in or sign-up to [Heroku](https://dashboard.heroku.com/).
+- On the mainpage, select 'New' and pick 'create new app'
+- Chose app-name and region.
+- After creation, select 'Deploy' and from there select 'Deployment method'.
+- Pick GitHub, find your github username, select the appropriate repository and connect.
+- Going back up to navigation and go to 'Settings'.
+- Here go to Config Vars and click 'Reveal Config Vars'.
+  - Here you enter in the exact same data as you did in your env.py, with the exeption of the debug line.
+  - No DEBUG.
+- Without the debug it should look this:
+
+  ```
+  IP = 0.0.0.0
+  PORT = 5000
+  SECRET_KEY = YOUR_SECRET_KEY
+  MONGO_URI = YOUR_MONGODB_URI
+  MONGO_DBNAME = DATABASE_NAME
+  ```
+  - No DEBUG here.
+
+- Go back to the 'Deploy' page.
+- Click on 'Enable automatic deployment'.
+- Click on 'Deploy branch'.
+  - Heroku will now build the application. This might take a while.
+- When the building is complete, you can now click 'view app' to open the application.
+- Because the heroku app is now linked to github, the changes you push to GitHub are automatically pushed the heroku aswell.
 
 [Back to top](#table-of-content)
 
