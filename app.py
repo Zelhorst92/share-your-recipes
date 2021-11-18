@@ -46,10 +46,21 @@ def search():
         recipes = list(mongo.db.recipes.find().sort("recipe_name", 1))
     elif inputquery == "":
         recipes = list(mongo.db.recipes.find(
-            {"recipe_category": categoryquery}).sort("recipe_name", 1))
-    else:
+            {"$text": {"$search": categoryquery}}).sort("recipe_name", 1))
+    elif categoryquery == "":
         recipes = list(mongo.db.recipes.find(
             {"$text": {"$search": inputquery}}).sort("recipe_name", 1))
+    else:
+        inputresult = list(mongo.db.recipes.find(
+            {"$text": {"$search": inputquery}}).sort("recipe_name", 1))
+        categoryresult = list(mongo.db.recipes.find(
+            {"$text": {"$search": categoryquery}}).sort("recipe_name", 1))
+        if inputresult == "":
+            recipes = categoryresult
+        elif categoryresult == "":
+            recipes = inputresult
+        else:
+            recipes = inputresult + categoryresult
 
     print(bool(recipes))
     if bool(recipes) is True:
