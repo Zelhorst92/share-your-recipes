@@ -51,8 +51,13 @@ def search():
         recipes = list(mongo.db.recipes.find(
             {"$text": {"$search": inputquery}}).sort("recipe_name", 1))
 
-    return render_template(
-        "pages/recipes.html", recipes=recipes, is_superuser=is_superuser)
+    print(bool(recipes))
+    if bool(recipes) is True:
+        return render_template(
+            "pages/recipes.html", recipes=recipes, is_superuser=is_superuser)
+    else:
+        flash('No recipes found!')
+        return redirect(url_for('home'))
 
 
 @app.route("/register", methods=["GET", "POST"])
