@@ -81,7 +81,7 @@ As a user;
 * A user dashboard for navigation to own recipes, add or change recipes.
 * An overview of all own recipes.
 * A form to add/change a recipe.
-* The ability to filter down search parameters to find a more specific recipe.
+* ~~The ability to filter down search parameters to find a more specific recipe.~~
 
 [Back to top](#table-of-content)
 
@@ -227,6 +227,29 @@ A user can be flagged as a "superuser" in the database. The superuser can edit a
 [Back to top](#table-of-content)
 
 ## Future Features
+### User Dashboard
+The dashboard at the moment only confirms what the users username is. In the future this should function as the users profile page. More information about the user, number of recipes, how much the users recipes have been visited, how many recipes have received a recommendation. etc.
+
+### Ordering
+A way to order the searched/users recipes via multiple criteria. Ie newest/oldest, most viewed, most liked, etc. At the moment the recipes are order alphabetically on recipe name.
+
+### More images
+At the moment the user can only provide a single link to an external hosted image of the recipe which is then used on the recipe page. In the future there should be option to upload several images to support the recipe. Afterall a picture can convey a lot more then words. This would require a larger database.
+
+### Delete user
+A way to delete the users account.
+
+### Change password/Forgot password
+The user should be able to change its password.
+
+### Double check password in registration
+A double password check, to make sure the user has put in the password the users wants. Perhaps a recaptcha check to see if user is actually human.
+
+### Pagination
+At the moment the shown recipes will continue to show on one page. Pagination is needed to keep it all orderly and neat.
+
+### Superuser capabilities
+At the moment the superuser can edit and delete all recipes compared to a normal user. In the future the capabilities should be expanded to that the superuser can add/remove/change categories. Perhaps a moderation role as suspending users accounts in events of violation. Community roles could be considered aswell, as in marking some recipes as recipe of the week.
 
 [Back to top](#table-of-content)
 
