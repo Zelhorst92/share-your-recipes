@@ -71,31 +71,23 @@
             <!-- Recipe Ingredients -->
             <div class="mb-1">
                 <label for="recipe_ingredients" class="form-label">Ingredients, seperated by a ";"</label>
-                <textarea class="form-control" id="recipe_ingredients" name="recipe_ingredients" rows="2" required>
-                    {% if edit == True %} 
-                        {{- recipe.recipe_ingredients|join(';') -}}
-                    {% endif %}
-                </textarea>
+                <textarea class="form-control" id="recipe_ingredients" name="recipe_ingredients" rows="2" required>{% if edit == True %}{{- recipe.recipe_ingredients|join(';') -}}{% endif %}</textarea>
             </div>
             <!-- Recipe Method -->
             <div class="mb-1">
                 <label for="recipe_method" class="form-label">Method</label>
-                <textarea class="form-control" id="recipe_method" name="recipe_method" rows="3" required>
-                    {% if edit == True %}
-                        {{ recipe.recipe_method }}
-                    {% endif %}
-                </textarea>
+                <textarea class="form-control" id="recipe_method" name="recipe_method" rows="3" required>{% if edit == True %}{{ recipe.recipe_method }}{% endif %}</textarea>
             </div>
             <div class="row justify-content-between mt-4">
                 <!-- Public or Private Recipe -->
-                <div class="col-6 form-check form-switch">
+                <div class="col-3 form-check form-switch">
                     <label class="form-check-label" for="is_public">Public Recipe?</label>
                     {% if edit == True %}
                         {% if recipe.is_public == True %}
-                            <input class="form-check-input" type="checkbox" role="switch" id="is_public" name="is_public"
+                            <input class="form-check-input is-public-switch" type="checkbox" role="switch" id="is_public" name="is_public"
                         checked>
                         {% else %}
-                            <input class="form-check-input" type="checkbox" role="switch" id="is_public" name="is_public">
+                            <input class="form-check-input is-public-switch" type="checkbox" role="switch" id="is_public" name="is_public">
                         {% endif %}
                     {% else %}
                     <input class="form-check-input is-public-switch" type="checkbox" role="switch" id="is_public"
@@ -108,7 +100,7 @@
                     <input type="hidden" id="recipe_creator" name="recipe_creator" value="{{ recipe.created_by }}">
                     <!-- Cancel/Submit Edit Recipe -->
                     <a class="col-4 btn btn-main select-btn" href="{{ url_for('my_recipes') }}">Cancel</a>
-                    <button class="col-6 btn btn-main select-btn" type="submit">Edit Recipe</button>
+                    <button class="col-4 p-0 btn btn-main edit-btn" type="submit">Edit Recipe</button>
                 {% else %}
                     <!-- Submit New Recipe -->
                     <button class="col-4 btn btn-main select-btn" type="submit">Add Recipe</button>

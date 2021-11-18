@@ -19,7 +19,7 @@ body {
 }
 
 /* Components */
-    /* Navigation */
+/* ---- Navigation */
 
 .navbar-brand {
     font-size: 2rem;
@@ -45,7 +45,7 @@ body {
     color: #ffffff;
 }
 
-    /* Flashbox */
+/* ---- Flashbox */
 
 .flash-box {
     height: 7rem;
@@ -60,26 +60,38 @@ body {
 
 .home-title {
     padding-bottom: 2rem;
+    font-size: 3rem;
 }
 
-    /* Buttons */
+/* ---- Buttons */
 
 .btn-main {
     font-size: 1.75rem;
+    border: 1px solid #191919;
+    align-self: center;
+    margin: 1rem;
+    width: 100%;
+    height: 5rem;
+    padding: 1rem 0 0 0;
 }
 
 .select-btn {
     background-color: #718161;
 }
-
 .select-btn:hover {
     background-color: #375412;
+}
+
+.search-btn {
+    margin: 0;
+    width: 75%;
+    height: 5rem;
+    padding: 0;
 }
 
 .edit-btn {
     background-color: #D5D6D8;
 }
-
 .edit-btn:hover {
     background-color: #8C8C8C;
 }
@@ -87,17 +99,40 @@ body {
 .delete-btn {
     background-color: #D9351C;
 }
-
 .delete-btn:hover {
     background-color: #97271B;
 }
 
+/* ---- Form elements */
 
+.form-control {
+    font-size: 2rem;
+}
+.form-control:focus::-webkit-input-placeholder  {
+    color:transparent;
+}
+.form-control:focus::-moz-placeholder   {
+    color:transparent;
+}
+.form-control:-moz-placeholder   {
+    color:transparent;
+}
+
+.form-select {
+    font-size: 2rem;
+}
 
 .is-public-switch[type=checkbox]:checked {
     background-color: #375412;
     border-color: #375412;
 }
+
+.form-switch .form-check-input {
+    width: 3.5rem;
+    height: 2rem;
+}
+
+/* ---- */
 
 .image {
     height: 25rem;
@@ -128,11 +163,12 @@ body {
     padding: 2rem;
 }
 
-    /* Cards */
+/* ---- Cards */
 
 .card {
     margin-bottom: 1rem;
     background: rgba(255, 255, 255, 0.80);
+    font-size: 1.75rem;
 }
 
 .card-title {
