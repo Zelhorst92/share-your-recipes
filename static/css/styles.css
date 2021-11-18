@@ -40,6 +40,7 @@ body {
 .flash-message {
     color: #FFFFFF;
     text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.75);
+    font-size: 2.5rem;
 }
 
 .home-title {
