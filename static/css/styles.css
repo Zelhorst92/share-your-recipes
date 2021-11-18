@@ -193,6 +193,11 @@ body {
 
 .card-body {
     padding: 1.5rem;
+    min-height: 15rem;
+}
+
+.card-desc {
+    margin-bottom: 5rem;
 }
 
 .dashboard-card {

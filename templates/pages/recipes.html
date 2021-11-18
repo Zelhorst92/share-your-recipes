@@ -4,10 +4,10 @@
 <div class="row">
 	{% for recipe in recipes %}
 		{% if recipe.is_public == True or session.user|lower == recipe.created_by|lower or is_superuser%}
-		<div class="col-12 col-sm-10 offset-sm-1 col-md-5 mx-auto mt-5 card">
+		<div class="col-12 col-sm-10 offset-sm-1 col-md-5 mx-auto mt-5 card ">
 			<div class="card-body">
-				<h5 class="card-title">Recipe Name: {{ recipe.recipe_name }}, {{ recipe.recipe_category }} </h5>
-				<p>{{ recipe.recipe_description }} </p>
+				<h5 class="card-title">{{ recipe.recipe_name }}, {{ recipe.recipe_category }} </h5>
+				<p class="card-desc">{{ recipe.recipe_description }} </p>
 				<div class="row justify-content-end">
 						{% if session.user|lower == recipe.created_by|lower or is_superuser %}
 						<div class="col-4">
