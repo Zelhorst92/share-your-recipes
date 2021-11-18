@@ -194,6 +194,37 @@ A flowchart on how the verification process of registering or logging in should 
 
 # Features
 ## Existing Features
+### Search Function
+On page load you will see a search bar and a category selector. The user can use these two parameters to find a recipe. The text input search along if there is a match with a word. The category selector will show all recipes with chosen category. Selecting neither, the search function will show all recipes. If there are no recipes found, a flash message will give feedback to the user that no recipes are found.
+
+### Registration and login function
+User can also opt to register on the site, so that the user can add recipes. The registration function requires an original username, a password and an original email address, of which the username and emailaddress will be checked against the database. No multiple usernames on one email address and no multiple emailadress with the same username. Feedback will be given if the username or emailaddress is already in use. The password will be hashed with the plugin by [werkzeug](https://werkzeug.palletsprojects.com/en/2.0.x/ "Link to werkzeug."), before the combination username, password and emailaddress is saved to the database.
+When trying to login, the username and password combination will be checked and compared. When wrong information is given, feedback will be suplied that the user has made a mistake, not telling if the mistake was made in the username or password. 
+Both registration and logging in will create a session cookie, which contains the username.
+
+### Log out
+This will delete the session cookie and thus requiring the user to log back in, if the user wants to access its own recipes.
+
+### Dashboard
+The profile page of the user. See future features.
+
+### CRUD
+#### Create recipes
+The user can, when logged in, create a recipe via Add Recipe in the navigation bar. Here the user can provide the recipe name, recipe category, a small description, an link to an external image of the dish, amount of servings, time to cook, the ingredients; seperated by a ; and the method. The user can also decide if the recipe can be seen by others by making it public or not. In addition the creation of a recipe also registers who created the recipe and when it was created.
+
+#### Read recipes
+Same as via the search function, the recipes can be viewed. Logged in user can also go to a page where they can view their own recipes, including there personal recipes.
+
+#### Update recipes
+The user can edit its own recipes. The same form as adding a recipe will be shown, but with all the fields already filled in. Which then can be altered and saved again. The recipe will then be updated to the database.
+
+#### Delete recipe
+The user can also delete its own recipes. Via either the search function or the users own recipe page, the user can press delete. A warning modal will show and confirm if the user wants to delete the recipe. It will also tell that it cannot be undone. The delete function works via a POST method and thus can not be repeatedly called via the URL.
+
+### Superuser
+A user can be flagged as a "superuser" in the database. The superuser can edit and delete all recipes.
+
+[Back to top](#table-of-content)
 
 ## Future Features
 
