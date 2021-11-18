@@ -46,13 +46,20 @@ def search():
         recipes = list(mongo.db.recipes.find().sort("recipe_name", 1))
     elif inputquery == "":
         recipes = list(mongo.db.recipes.find(
-            {"$text": {"$search": categoryquery}}).sort("recipe_name", 1))
-    else:
+            {"recipe_category": categoryquery}).sort("recipe_name", 1))
+    elif categoryquery == "":
         recipes = list(mongo.db.recipes.find(
+            {"$text": {"$search": '\"inputquery\"'}}).sort("recipe_name", 1))
+    else:
+        recipes = recipes = list(mongo.db.recipes.find(
             {"$text": {"$search": inputquery}}).sort("recipe_name", 1))
 
-    return render_template(
-        "pages/recipes.html", recipes=recipes, is_superuser=is_superuser)
+    if recipes is None:
+        flash('No recipes found')
+        return redirect(url_for("home"))
+    else:
+        return render_template(
+            "pages/recipes.html", recipes=recipes, is_superuser=is_superuser)
 
 
 @app.route("/register", methods=["GET", "POST"])

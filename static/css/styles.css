@@ -74,6 +74,17 @@ body {
     padding: 1rem 0 0 0;
 }
 
+.form-btn {
+    font-size: 1.75rem;
+    border: 1px solid #191919;
+    align-self: center;
+    height: 5rem;
+}
+
+.cancel-btn {
+    padding-top: 1rem;
+}
+
 .select-btn {
     background-color: #718161;
 }
@@ -100,6 +111,11 @@ body {
 }
 .delete-btn:hover {
     background-color: #97271B;
+}
+
+.modal-btn {
+    width: 13rem;
+    padding: 0;
 }
 
 /* ---- Form elements */
@@ -182,4 +198,10 @@ body {
 .dashboard-card {
     height: 60vh;
     width: 60vw;
+}
+
+/* ---- Modal */
+
+.modal-title {
+    font-size: 2.5rem;
 }

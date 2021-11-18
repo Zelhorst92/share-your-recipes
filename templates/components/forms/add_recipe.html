@@ -80,7 +80,7 @@
             </div>
             <div class="row justify-content-between mt-4">
                 <!-- Public or Private Recipe -->
-                <div class="col-3 form-check form-switch">
+                <div class="col-6 col-sm-3 form-check form-switch mb-2">
                     <label class="form-check-label" for="is_public">Public Recipe?</label>
                     {% if edit == True %}
                         {% if recipe.is_public == True %}
@@ -99,11 +99,11 @@
                     <!-- Created By -->
                     <input type="hidden" id="recipe_creator" name="recipe_creator" value="{{ recipe.created_by }}">
                     <!-- Cancel/Submit Edit Recipe -->
-                    <a class="col-4 btn btn-main select-btn" href="{{ url_for('my_recipes') }}">Cancel</a>
-                    <button class="col-4 p-0 btn btn-main edit-btn" type="submit">Edit Recipe</button>
+                    <a class="col-12 mb-2 col-sm-4 mb-sm-0 btn select-btn cancel-btn form-btn" href="{{ url_for('my_recipes') }}">Cancel</a>
+                    <button class="col-12 col-sm-4 p-0 btn edit-btn form-btn" type="submit">Edit Recipe</button>
                 {% else %}
                     <!-- Submit New Recipe -->
-                    <button class="col-4 btn btn-main select-btn" type="submit">Add Recipe</button>
+                    <button class="col-12 col-sm-4 btn select-btn form-btn" type="submit">Add Recipe</button>
                 {% endif %}
             </div>
         </form>
