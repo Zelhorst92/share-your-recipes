@@ -260,13 +260,15 @@ At the moment the superuser can edit and delete all recipes compared to a normal
 *   [HTML](https://en.wikipedia.org/wiki/HTML "Link to the HTML wikipedia page")
 *   [CSS](https://en.wikipedia.org/wiki/CSS "Link to the CSS wikipedia page")
 *   [JavaScript](https://en.wikipedia.org/wiki/JavaScript "Link to the JavaScript wikipedia page")
+*   [Python](https://www.python.org/ "Link to the python webpage")
+
 
 ## Libraries and Tools
 ### Libraries & Frameworks
-*   ~~[Bootstrap](https://getbootstrap.com/ "Link to bootstrap")~~
-*   ~~[Fontawsome](https://fontawesome.com/ "Link to fontawesome")~~
+*   [Bootstrap](https://getbootstrap.com/ "Link to bootstrap")
+*   [Fontawsome](https://fontawesome.com/ "Link to fontawesome")
 *   [Googlefonts](https://fonts.google.com/ "Link to googlefonts") 
-*   [Open Trivia Database](https://opentdb.com/ "Link to open trivia database")
+*   ~~[jQuery](https://jquery.com/)~~
 
 ### Tools
 *   [Gitpod](https://www.gitpod.io/ "Link to gitpod")
@@ -276,8 +278,13 @@ At the moment the superuser can edit and delete all recipes compared to a normal
 *   [Balsamiq Wireframes](https://balsamiq.com/wireframes/ "Link to balsamiq wireframes")
 *   [W3C Css-validator](https://jigsaw.w3.org/css-validator/ "Link to the w3 css validator")
 *   [W3C Markup-validator](https://validator.w3.org/ "Link to w3c markup validator")
-*   [Techsini](http://techsini.com/ "techsini.com")
-*   [Favicon.cc](https://www.favicon.cc/)
+*   [Techsini](http://techsini.com/ "Link to techsini.com")
+*   [Favicon.cc](https://www.favicon.cc/ "Link to a favicon creator")
+*   [Heroku](https://www.heroku.com/ "Link to Heroku")
+*   [MongoDB Atlas](https://www.mongodb.com/ "Link to mongoDB")
+*   [Flask](https://flask.palletsprojects.com/en/2.0.x/ "Link to Flask")
+*   [PyMongo](https://pymongo.readthedocs.io/en/stable/l "Link to pymongo literature")
+*   [Jinja](https://jinja.palletsprojects.com/en/3.0.x/ "Link to jinja literature")
 
 [Back to top](#table-of-content)
 
