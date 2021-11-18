@@ -26,8 +26,23 @@ body {
     padding-left: 1rem;
 }
 
+.navbar-dark .navbar-toggler {
+    color: #ffffff;
+    border-color: #8C8C8C;
+    font-size: 2rem;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #ffffff;
+}
+
 .navbar-nav {
     text-align: right;
+}
+
+.navbar-color {
+    background-color: #191919;
+    color: #ffffff;
 }
 
     /* Flashbox */
