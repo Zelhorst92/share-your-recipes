@@ -123,7 +123,7 @@ The grid-system that Bootstrap provides is very usefull to have a well working r
 Furthermore Bootstrap has a wide browser compatibility, is quite easy to use and is very customizable.
 
 ### Fonts
-I will be using a font from [Google Fonts](https://fonts.google.com/ "Google Fonts"), specifically the [Nanum Gothic](https://fonts.google.com/specimen/Nanum+Gothic "Nanum Gothic").
+I will be using a font from [Google Fonts](https://fonts.google.com/ "Google Fonts"), specifically the [Ubuntu Font](https://fonts.google.com/specimen/Ubuntu/ "Ubuntu Font").
 An easy to read, compact, professional looking font.
 
 ### Colours
