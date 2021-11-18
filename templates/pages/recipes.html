@@ -14,10 +14,7 @@
 						{% if session.user|lower == recipe.created_by|lower or is_superuser %}
 
 						<a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-main edit-btn">Edit Recipe</a>
-						<button type="submit" class="btn btn-main delete-btn" data-bs-toggle="modal"
-							data-bs-target="#confirmModal{{ recipe._id }}">
-							Delete
-						</button>
+						<a href="#confirmModal{{ recipe._id }}" class="btn btn-main delete-btn" data-bs-toggle="modal">Delete</a>
 						{% include 'components/confirm_modal.html'%}
 						{% endif %}
 					</div>
