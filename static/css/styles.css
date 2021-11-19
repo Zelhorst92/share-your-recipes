@@ -180,17 +180,20 @@ body {
 }
 
 .card-title {
+    margin-top: 1rem;
     margin-bottom: 1.5rem;
     font-size: 2.5rem;
+    height: 6rem;
+}
+
+.card-desc {
+    margin-bottom: 5rem;
+    height: 8rem;
 }
 
 .card-body {
     padding: 1.5rem;
     min-height: 15rem;
-}
-
-.card-desc {
-    margin-bottom: 5rem;
 }
 
 .dashboard-card {
@@ -216,4 +219,9 @@ body {
     border-bottom: 1px solid black;
     padding: 10px 0;
     margin: 2px 0;
+}
+
+.error-message {
+    font-size: 2rem;
+    margin: 3rem;
 }
