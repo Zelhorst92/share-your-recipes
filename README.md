@@ -1,8 +1,14 @@
 # Share your Recipes!
-
+![Mockup](wireframes/mockup.png)
 # Introduction
 
-Welcome...
+Welcome to Share Your Recipes! Here you can find all your desired recipes! 
+
+Ranging from dessert to side dishes, all kinds of recipes can be found here at Share Your Recipes. Or if you need a digital recipe book, then this is also the place for you! Create an account and add your own recipes at will. You can even decide if you want others to see your recipes or if you want to keep them private!
+
+Thank you for visiting this project! For any feedback and/or questions you can always contact me via GitHub!
+
+~ Robert L. Zelhorst
 
 # Table of Content
 - [User Experience](#user-experience)
@@ -280,6 +286,7 @@ At the moment the superuser can edit and delete all recipes compared to a normal
 *   [Contrast Checker](https://webaim.org/resources/contrastchecker/)
 *   [W3C Css-validator](https://jigsaw.w3.org/css-validator/ "Link to the w3 css validator")
 *   [W3C Markup-validator](https://validator.w3.org/ "Link to w3c markup validator")
+*   [Python Validator](https://infoheap.com/python-lint-online/ "Link to pyhton lint validator")
 *   [Techsini](http://techsini.com/ "Link to techsini.com")
 *   [Favicon.cc](https://www.favicon.cc/ "Link to a favicon creator")
 *   [Heroku](https://www.heroku.com/ "Link to Heroku")
@@ -399,6 +406,7 @@ To run the application on for example Heroku, you need an up to date requirement
 - Then the following:
   ```
   from app import mongo
+  
   mongo.db.recipes.create_index([("recipe_name", "text"), ("recipe_category", "text"), ("recipe_description", "text")])
   ```
 - This creates an index along the recipe_name, recipe_category and recipe_description which are used to search for recipes.
