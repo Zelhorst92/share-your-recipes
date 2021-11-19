@@ -4,109 +4,111 @@
 <div class="row">
     <div class="card col-12 col-lg-6 offset-lg-3">
         {% if edit == True %}
-        <form class="card-body" method="POST" action="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
+            <form class="card-body" method="POST" action="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
         {% else %}
-        <form class="card-body" method="POST" action="{{ url_for('add_recipe') }}">
-            {% endif %}
-            <!-- Recipe Name -->
-            <div class="mb-2">
-                <label class="mb-0" for="recipe_name" class="form-label">Your Recipe Name:</label>
-                <input type="text" class="form-control" id="recipe_name" name="recipe_name" placeholder="Recipe Name"
-                    required {% if edit == True %} value="{{ recipe.recipe_name }}" {% endif %}>
-            </div>
-            <!-- Select Recipe Category -->
-            <div class="mb-2">
-                <label class="mb-0" for="recipe_category" class="form-label">Select your recipe category:</label>
-                <select id="recipe_category" name="recipe_category" class="form-select"
-                    aria-label="Default select example">
-                    {% if edit == True %}
-                        {% for category in categories %}
-                            {% if category.recipe_category == recipe.recipe_category %}
-                                <option value="{{ recipe.recipe_category }}" selected>{{ recipe.recipe_category }}</option>
-                            {% else %}
-                                <option value="{{ category.recipe_category }}">{{ category.recipe_category }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    {% else %}
-                        <option selected>Select category</option>
-                        {% for category in categories %}
-                            <option value="{{ category.recipe_category }}">{{ category.recipe_category }}</option>
-                        {% endfor %}
-                    {% endif %}
-                </select>
-            </div>
-            <!-- Short recipe description -->
-            <div class="mb-2">
-                <label class="mb-0" for="recipe_description" class="form-label">A short description of your
-                    recipe:</label>
-                <input type="text" class="form-control" id="recipe_description" name="recipe_description"
-                    placeholder="The most delicious dish ever!" required {% if edit == True %}
-                    value="{{ recipe.recipe_description }}" {% endif %}>
-            </div>
-            <!-- Recipe img link -->
-            <div class="mb-2">
-                <label class="mb-0" for="recipe_img" class="form-label">External link to an image of your finished
-                    recipe
-                    dish:</label>
-                <input type="text" class="form-control" id="recipe_img" name="recipe_img"
-                    placeholder="Ie. https://i.imgur.com/YOURIMGCODE.jpeg" {% if edit == True %}
-                    value="{{ recipe.recipe_img }}" {% endif %}>
-            </div>
-            <div class="row mb-2">
-                <!-- servings -->
-                <div class="mb-1 col-6">
-                    <label class="mb-0" for="servings" class="form-label">Number of serving:</label>
-                    <input type="text" class="form-control" id="servings" name="servings"
-                        placeholder="Number of servings" required {% if edit == True %} value="{{ recipe.servings }}"
-                        {% endif %}>
+            <form class="card-body" method="POST" action="{{ url_for('add_recipe') }}">
+        {% endif %}
+                <!-- Recipe Name -->
+                <div class="mb-2">
+                    <label class="mb-0" for="recipe_name" class="form-label">Your Recipe Name:</label>
+                    <input type="text" class="form-control" id="recipe_name" name="recipe_name"
+                        placeholder="Recipe Name" minlength="4" maxlength="30" required {% if edit == True %}
+                        value="{{ recipe.recipe_name }}" {% endif %}>
                 </div>
-                <!-- Cooking time -->
-                <div class="mb-1 col-6">
-                    <label class="mb-0" for="cook_time" class="form-label">Time to cook, in minutes:</label>
-                    <input type="text" class="form-control" id="cook_time" name="cook_time"
-                        placeholder="Cooking time, in minutes" required {% if edit == True %}
-                        value="{{ recipe.cook_time }}" {% endif %}>
-                </div>
-            </div>
-            <!-- Recipe Ingredients -->
-            <div class="mb-1">
-                <label for="recipe_ingredients" class="form-label">Ingredients, seperated by a ";"</label>
-                <textarea class="form-control" id="recipe_ingredients" name="recipe_ingredients" rows="2" required>{% if edit == True %}{{- recipe.recipe_ingredients|join(';') -}}{% endif %}</textarea>
-            </div>
-            <!-- Recipe Method -->
-            <div class="mb-1">
-                <label for="recipe_method" class="form-label">Method</label>
-                <textarea class="form-control" id="recipe_method" name="recipe_method" rows="3" required>{% if edit == True %}{{ recipe.recipe_method }}{% endif %}</textarea>
-            </div>
-            <div class="row justify-content-between mt-4">
-                <!-- Public or Private Recipe -->
-                <div class="col-6 col-sm-3 form-check form-switch mb-2">
-                    <label class="form-check-label" for="is_public">Public Recipe?</label>
-                    {% if edit == True %}
-                        {% if recipe.is_public == True %}
-                            <input class="form-check-input is-public-switch" type="checkbox" role="switch" id="is_public" name="is_public"
-                        checked>
+                <!-- Select Recipe Category -->
+                <div class="mb-2">
+                    <label class="mb-0" for="recipe_category" class="form-label">Select your recipe category:</label>
+                    <select id="recipe_category" name="recipe_category" class="form-select"
+                        aria-label="Default select example">
+                        {% if edit == True %}
+                            {% for category in categories %}
+                                {% if category.recipe_category == recipe.recipe_category %}
+                                    <option value="{{ recipe.recipe_category }}" selected>{{ recipe.recipe_category }}</option>
+                                {% else %}
+                                    <option value="{{ category.recipe_category }}">{{ category.recipe_category }}</option>
+                                {% endif %}
+                            {% endfor %}
                         {% else %}
-                            <input class="form-check-input is-public-switch" type="checkbox" role="switch" id="is_public" name="is_public">
+                            <option selected>Select category</option>
+                            {% for category in categories %}
+                            <option value="{{ category.recipe_category }}">{{ category.recipe_category }}</option>
+                            {% endfor %}
                         {% endif %}
-                    {% else %}
-                    <input class="form-check-input is-public-switch" type="checkbox" role="switch" id="is_public"
-                        name="is_public" checked>
-                    {% endif %}
-
+                    </select>
                 </div>
-                {% if edit == True %}
-                    <!-- Created By -->
-                    <input type="hidden" id="recipe_creator" name="recipe_creator" value="{{ recipe.created_by }}">
-                    <!-- Cancel/Submit Edit Recipe -->
-                    <a class="col-12 mb-2 col-sm-4 mb-sm-0 btn select-btn cancel-btn form-btn" href="{{ url_for('my_recipes') }}">Cancel</a>
-                    <button class="col-12 col-sm-4 p-0 btn edit-btn form-btn" type="submit">Edit Recipe</button>
-                {% else %}
-                    <!-- Submit New Recipe -->
-                    <button class="col-12 col-sm-4 btn select-btn form-btn" type="submit">Add Recipe</button>
-                {% endif %}
-            </div>
-        </form>
+                <!-- Short recipe description -->
+                <div class="mb-2">
+                    <label class="mb-0" for="recipe_description" class="form-label">A short description of your
+                        recipe:</label>
+                    <textarea class="form-control" id="recipe_description" name="recipe_description" rows="2"
+                        minlength="10" maxlength="120"
+                        required>{% if edit == True %}{{ recipe.recipe_description }}{% endif %}</textarea>
+                </div>
+                <!-- Recipe img link -->
+                <div class="mb-2">
+                    <label class="mb-0" for="recipe_img" class="form-label">External link to an image of your finished
+                        recipe
+                        dish:</label>
+                    <input type="text" class="form-control" id="recipe_img" name="recipe_img"
+                        placeholder="Ie. https://i.imgur.com/YOURIMGCODE.jpeg" {% if edit == True %}
+                        value="{{ recipe.recipe_img }}" {% endif %}>
+                </div>
+                <div class="row mb-2">
+                    <!-- servings -->
+                    <div class="mb-1 col-6">
+                        <label class="mb-0" for="servings" class="form-label">Number of serving:</label>
+                        <input type="number" class="form-control" id="servings" name="servings"
+                            placeholder="Number of servings" min="1" max="999" required {% if edit == True %}
+                            value="{{ recipe.servings }}" {% endif %}>
+                    </div>
+                    <!-- Cooking time -->
+                    <div class="mb-1 col-6">
+                        <label class="mb-0" for="cook_time" class="form-label">Time to cook, in minutes:</label>
+                        <input type="number" class="form-control" id="cook_time" name="cook_time"
+                            placeholder="Cooking time, in minutes" min="1" max="999" required {% if edit == True %}
+                            value="{{ recipe.cook_time }}" {% endif %}>
+                    </div>
+                </div>
+                <!-- Recipe Ingredients -->
+                <div class="mb-1">
+                    <label for="recipe_ingredients" class="form-label">Ingredients, seperated by a ";"</label>
+                    <textarea class="form-control" id="recipe_ingredients" name="recipe_ingredients" rows="2"
+                        maxlength="500"
+                        required>{% if edit == True %}{{- recipe.recipe_ingredients|join(';') -}}{% endif %}</textarea>
+                </div>
+                <!-- Recipe Method -->
+                <div class="mb-1">
+                    <label for="recipe_method" class="form-label">Method</label>
+                    <textarea class="form-control" id="recipe_method" name="recipe_method" rows="3" maxlength="5000"
+                        required>{% if edit == True %}{{ recipe.recipe_method }}{% endif %}</textarea>
+                </div>
+                <div class="row justify-content-between mt-4">
+                    <!-- Public or Private Recipe -->
+                    <div class="col-6 col-sm-3 form-check form-switch mb-2">
+                        <label class="form-check-label" for="is_public">Public Recipe?</label>
+                        {% if edit == True %}
+                            {% if recipe.is_public == True %}
+                                <input class="form-check-input is-public-switch" type="checkbox" role="switch" id="is_public" name="is_public" checked>
+                            {% else %}
+                                <input class="form-check-input is-public-switch" type="checkbox" role="switch" id="is_public" name="is_public">
+                            {% endif %}
+                        {% else %}
+                            <input class="form-check-input is-public-switch" type="checkbox" role="switch" id="is_public" name="is_public" checked>
+                        {% endif %}
+                    </div>
+                    {% if edit == True %}
+                        <!-- Created By -->
+                        <input type="hidden" id="recipe_creator" name="recipe_creator" value="{{ recipe.created_by }}">
+                        <!-- Cancel/Submit Edit Recipe -->
+                        <a class="col-12 mb-2 col-sm-4 mb-sm-0 btn select-btn cancel-btn form-btn"
+                            href="{{ url_for('my_recipes') }}">Cancel</a>
+                        <button class="col-12 col-sm-4 p-0 btn edit-btn form-btn" type="submit">Edit Recipe</button>
+                    {% else %}
+                        <!-- Submit New Recipe -->
+                        <button class="col-12 col-sm-4 btn select-btn form-btn" type="submit">Add Recipe</button>
+                    {% endif %}
+                </div>
+            </form>
     </div>
 </div>
 {% endblock %}
