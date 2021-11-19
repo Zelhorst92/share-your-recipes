@@ -276,12 +276,14 @@ At the moment the superuser can edit and delete all recipes compared to a normal
 *   [Git](https://git-scm.com/ "Link to git")
 *   [Tinypng](https://tinypng.com/ "Link to tinypng") 
 *   [Balsamiq Wireframes](https://balsamiq.com/wireframes/ "Link to balsamiq wireframes")
+*   [Coolors](https://coolors.co/)
+*   [Contrast Checker](https://webaim.org/resources/contrastchecker/)
 *   [W3C Css-validator](https://jigsaw.w3.org/css-validator/ "Link to the w3 css validator")
 *   [W3C Markup-validator](https://validator.w3.org/ "Link to w3c markup validator")
 *   [Techsini](http://techsini.com/ "Link to techsini.com")
 *   [Favicon.cc](https://www.favicon.cc/ "Link to a favicon creator")
 *   [Heroku](https://www.heroku.com/ "Link to Heroku")
-*   [MongoDB Atlas](https://www.mongodb.com/ "Link to mongoDB")
+*   [MongoDB Atlas](https://docs.mongodb.com/ "Link to mongoDB")
 *   [Flask](https://flask.palletsprojects.com/en/2.0.x/ "Link to Flask")
 *   [PyMongo](https://pymongo.readthedocs.io/en/stable/l "Link to pymongo literature")
 *   [Jinja](https://jinja.palletsprojects.com/en/3.0.x/ "Link to jinja literature")
@@ -427,8 +429,17 @@ To run the application on for example Heroku, you need an up to date requirement
 [Back to top](#table-of-content)
 
 # Credits
+## Usefull links and images.
+- [On Splitting and Joining Strings](https://runestone.academy/runestone/books/published/fopp/Sequences/SplitandJoin.html)
+- [Hero Image](https://unsplash.com/photos/-YHSwy6uqvk)
+- [No Img image](https://www.freeiconspng.com/downloadimg/23485)
+- [Center and crop an image](https://stackoverflow.com/questions/18673900/how-to-center-and-crop-an-image-to-always-appear-in-square-shape-with-css/31943908)
+- [Colour Gradient Generator](https://mycolor.space/gradient3?ori=to+right+top&hex=%23FFFFFF&hex2=%23ABADB0&hex3=%23191919&submit=submit)
+
 ## Code
-###
+
+### Modal
+[Bootstrap Modal](https://getbootstrap.com/docs/5.1/components/modal/)
 ###
 
 ## Thanks
