@@ -6,6 +6,10 @@
     * [Registration](#registration)
     * [Login](#login)
     * [View Recipe](#view-recipe)
+    * [Add Recipe](#add-recipe)
+    * [Edit Recipe](#edit-recipe)
+    * [Delete Recipe](#delete-recipe)
+    * [Superuser](#superuser)
 
 * [Bugreports](#bugreports)
     * [Feedback Hidden Recipe](#feedback-hidden-recipe)
@@ -158,7 +162,7 @@ The other navigation path is via the recipe card. The user can search for recipe
 
 [Back to top](#testing-and-bugreports)
 
-##  Category Selection
+##  Edit Recipe
 ### User Expectation
 *   As a user, I want to change my recipes.
 *   I want to decide if my recipes are public or not.
@@ -166,6 +170,23 @@ The other navigation path is via the recipe card. The user can search for recipe
 *   When a registered user has added a recipe, the user also has the ability to edit said recipe. Via the my recipes page or via the searchpage if the user found its own recipe, the user can click on 'Edit' on the recipe card. This loads the same form from adding a recipe, but with the fields already filled in. The user can change all the data in the form and then save the recipe again to the database.
 ### Test
 *   Edit a recipe, making sure the recipe is actually changed and not saved as a new recipe by checking the database before and after editing.
+### Result
+*   Test passed.
+### Bugs
+*   None.
+### Comments
+*   None.
+
+[Back to top](#testing-and-bugreports)
+
+##  Delete Recipe
+### User Expectation
+*   As a user, I want to change my recipes.
+### Intention
+*   In addition to add and editing recipes, the user is able to delete its recipes. And only the recipes created by the user. Therefore multiple checks are in place to see if the logged in user is trying to delete its own recipe. First of the webpage will not generate the delete button if the logged in user is not the same as the recipes creator. It works the same with the confirmation modal. Then in the backend the logged in user name will be checked again against the recipe creator, before deletion can be executed.
+When the user tries to delete a recipe, a modal will pop up asking to confirm to delete said recipe and telling the user that the deletion cannot be undone. Upon confirming, the recipe will be deleted.
+### Test
+*   Delete a recipe.
 ### Result
 *   Test passed.
 ### Bugs
@@ -193,23 +214,6 @@ The other navigation path is via the recipe card. The user can search for recipe
 
 [Back to top](#testing-and-bugreports)
 
-##  Deletion
-### User Expectation
-*   As a user, I want to change my recipes.
-### Intention
-*   In addition to add and editing recipes, the user is able to delete its recipes. And only the recipes created by the user. Therefore multiple checks are in place to see if the logged in user is trying to delete its own recipe. First of the webpage will not generate the delete button if the logged in user is not the same as the recipes creator. It works the same with the confirmation modal. Then in the backend the logged in user name will be checked again against the recipe creator, before deletion can be executed.
-When the user tries to delete a recipe, a modal will pop up asking to confirm to delete said recipe and telling the user that the deletion cannot be undone. Upon confirming, the recipe will be deleted.
-### Test
-*   Delete a recipe.
-### Result
-*   Test passed.
-### Bugs
-*   None.
-### Comments
-*   None.
-
-[Back to top](#testing-and-bugreports)
-
 ---
 
 # Bugreports
@@ -217,9 +221,9 @@ When the user tries to delete a recipe, a modal will pop up asking to confirm to
 ### Bug
 *   No redirect and adequate feedback when queries point into the direction of a hidden recipe. Feedback should be as if no recipes were found.
 ### Fix
-*   
+*   In the backend, the recipes flagged with the is_public = False should be removed from the recipes list before it is send the html page. At the moment the jinja restriction prevents the loading of the hidden recipe, but the application thinks there is a result.
 ### Conclusion/Result
-*   
+*   --
 ### Status
 *   Unresolved
 
