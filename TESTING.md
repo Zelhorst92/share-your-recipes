@@ -1,10 +1,11 @@
 # Testing and Bugreports
 
 * [Testing](#testing)
-    * [Search for recipes 1](#search-for-recipes-1)
+    * [Search for recipes](#search-for-recipes-1)
     * [Navigation](#navigation)
     * [Registration](#registration)
     * [Login](#login)
+    * [Log out](#log-out)
     * [View Recipe](#view-recipe)
     * [Add Recipe](#add-recipe)
     * [Edit Recipe](#edit-recipe)
@@ -16,8 +17,7 @@
 
 # Testing
 
-##  Search for recipes 1
-(not logged in)
+##  Search for recipes
 ### User Expectation
 As a user, I want to search for recipes.
 ### Intention
@@ -79,7 +79,7 @@ The other navigation path is via the recipe card. The user can search for recipe
 ### Bugs
 *   None.
 ### Comments
-*   None.
+*   The navigation is rather basic, I would like to add more on page navigation like back buttons on the view recipe and searched recipes pages.
 
 [Back to top](#testing-and-bugreports)
 
@@ -99,7 +99,7 @@ The other navigation path is via the recipe card. The user can search for recipe
     *   Username: Test09, Email: test09@test.com
 *   Check via devtools if a session cookie was created.
 ### Result
-*   All tests passed. Feedback was given if username or emailaddress was already in use. When registration was successful user was redirected to users dashboard.
+*   All tests passed. Feedback was given if username or emailaddress was already in use. When registration was successful user was redirected to users dashboard. Sessoincookie was created.
 ### Bugs
 *   None.
 ### Comments
@@ -119,6 +119,23 @@ The other navigation path is via the recipe card. The user can search for recipe
 *   Check via devtools if a session cookie was created.
 ### Result
 *   All tests passed. Feedback was given if username and/or password were incorrect. After successful login user was redirected to users dashboard.
+### Bugs
+*   None.
+### Comments
+*   None.
+
+[Back to top](#testing-and-bugreports)
+
+##  Log out
+### User Expectation
+*   As a user, I want to login to the website.
+### Intention
+*   With logging in to the application comes the ability to log out of said application. With logging out, the session cookie should be deleted.
+### Tests
+*   Try to logout.
+*   Check if sessioncookie is deleted with the devtools.
+### Result
+*   All tests passed. Feedback was given when the user logged out. User got redirected to the searchpage. Session cookie was deleted.
 ### Bugs
 *   None.
 ### Comments
