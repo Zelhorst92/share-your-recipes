@@ -435,18 +435,32 @@ To run the application on for example Heroku, you need an up to date requirement
 - [No Img image](https://www.freeiconspng.com/downloadimg/23485)
 - [Center and crop an image](https://stackoverflow.com/questions/18673900/how-to-center-and-crop-an-image-to-always-appear-in-square-shape-with-css/31943908)
 - [Colour Gradient Generator](https://mycolor.space/gradient3?ori=to+right+top&hex=%23FFFFFF&hex2=%23ABADB0&hex3=%23191919&submit=submit)
+- [Bootstrap Modal](https://getbootstrap.com/docs/5.1/components/modal/)
+
 
 ## Code
+The code start is based on the miniproject taskmanager of codeinstitute and then expanded upon.
 
-### Modal
-[Bootstrap Modal](https://getbootstrap.com/docs/5.1/components/modal/)
-###
+Most of the code is made with bootstrap and w3schools. With the exception of the a small part of the css which was inspired by a forum post on stackoverflow, [this link](#https://stackoverflow.com/questions/18673900/how-to-center-and-crop-an-image-to-always-appear-in-square-shape-with-css/31943908). This was to get an image from an external link to be not stretched.
+
+### Modal & Navigationbar
+The modal and navigationbar are both from Bootstrap which are then edited to suit the application.
 
 ## Thanks
+### My mentor
+I would like to thank my mentor [Simen Daehlin](https://github.com/Eventyret "githubpage of Simen") for pointing me in the right direction in terms of the goals of the site. He also gave me quite a couple of pointers on how to improve my code, the order of code and how the python could be written easiers/simpler.
+Furthermore the sparring on how the logic could be explained was quite enjoyable.
+
+### My family and friends
+I would also like to thank my family and friends for their brutally honest feedback which helped a lot to view the website from the users perspective.
 
 ## Afterword
 
-...
+This project was quite a bit different with the focus on the backend. I really enjoyed the way on how you need to think to get the logic right. Most of the time is was working throught the documentation of w3schools to see if I could apply a piece logic I conjured up. I really enjoyed working on this project.
+
+If I had more time I would have added a lot more, like pagination, more abilities for the superuser, a more expansive user dashboard etc. but scope creep was looming and I focussed on what I set out to do.
+
+Overal I really enjoyed making this.
 
 Robert L. Zelhorst
 
