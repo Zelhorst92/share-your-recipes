@@ -390,6 +390,19 @@ To run the application on for example Heroku, you need an up to date requirement
 - Go to Network Access, on the left.
 - Add 0.0.0.0/0 to the IP Adress list.
 
+### Create index
+- The application works but search along a text index. You will have to create this.
+- In your preffered IDE, go to your terminal and run:
+  ```
+  python3
+  ```
+- Then the following:
+  ```
+  from app import mongo
+  mongo.db.recipes.create_index([("recipe_name", "text"), ("recipe_category", "text"), ("recipe_description", "text")])
+  ```
+- This creates an index along the recipe_name, recipe_category and recipe_description which are used to search for recipes.
+
 ## Run Application locally
 - If you have installed all the requirements, set up the database and made the env.py file, the application is ready the be run locally.
 - run the following command in your IDE terminal:
