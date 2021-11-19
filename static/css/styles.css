@@ -219,6 +219,10 @@ body {
     font-size: 4rem;
 }
 
+.recipe-desc {
+    font-size: 2rem;
+}
+
 /* ---- Ingredient Accordion */
 
 .accordion-button {
