@@ -48,29 +48,17 @@ def search():
     elif inputquery == "":
         recipes = list(mongo.db.recipes.find(
             {"$text": {"$search": categoryquery}}).sort("recipe_name", 1))
-
     elif categoryquery == "":
         recipes = list(mongo.db.recipes.find(
             {"$text": {"$search": inputquery}}).sort("recipe_name", 1))
     else:
-        inputresult = list(mongo.db.recipes.find(
-            {"$text": {"$search": inputquery}}).sort("recipe_name", 1))
-        categoryresult = list(mongo.db.recipes.find(
+        recipes = list(mongo.db.recipes.find(
             {"$text": {"$search": categoryquery}}).sort("recipe_name", 1))
-        if inputresult == "":
-            recipes = categoryresult
-        elif categoryresult == "":
-            recipes = inputresult
-        else:
-            recipes = []
-            inputresult.extend(categoryresult)
-            for result in inputresult:
-                if result not in recipes:
-                    recipes.append(result)
-                if result["recipe_category"] != categoryquery:
-                    recipes.remove(result)
-                if inputquery.lower() not in result["recipe_name"].lower():
-                    recipes.remove(result)
+        for recipe in recipes:
+            if inputquery.lower() not in recipe["recipe_name"].lower(
+            ) and inputquery.lower() not in recipe["recipe_description"].lower(
+            ):
+                recipes.remove(recipe)
 
     if bool(recipes) is True:
         return render_template(
