@@ -32,6 +32,7 @@ def home():
 def search():
     """
     Search function that find recipes from the database with 2 parameters.
+    No parameters given, shows all recipes.
     """
     inputquery = request.form.get("inputquery")
     categoryquery = request.form.get("categoryquery")
@@ -60,9 +61,13 @@ def search():
         elif categoryresult == "":
             recipes = inputresult
         else:
-            recipes = inputresult + categoryresult
+            net_result = []
+            inputresult.extend(categoryresult)
+            for result in inputresult:
+                if result not in net_result:
+                    net_result.append(result)
+            recipes = net_result
 
-    print(bool(recipes))
     if bool(recipes) is True:
         return render_template(
             "pages/recipes.html", recipes=recipes, is_superuser=is_superuser)
